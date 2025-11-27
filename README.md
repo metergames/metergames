@@ -1,5 +1,5 @@
 # 💫 About Me:
-🌐 I’m currently working on an invoice tracker and creator that parses PDFs, generates new invoices, and produces detailed reports like province-specific tax summaries.<br>🤝 I’m looking to collaborate on practical apps that solve everyday problems and don’t require a huge team to build.<br>🛟 I’m looking for help with improving iOS architecture, refining PDF parsing and generation, and building clean backend endpoints.<br>🌱 I’m currently learning Swift and building more structured iOS apps with scalable data handling.<br>💬 Ask me about APIs, analytics dashboards, and turning school projects into full apps.<br>⚡ Fun fact: my quick side projects tend to evolve into full products because I keep improving them.
+🌐 I’m currently working on an invoice app that parses PDFs, creates invoices, and generates clean reports.<br>🤝 I’m looking to collaborate on small practical apps that solve real problems.<br>🌱 I’m currently learning Swift and iOS development.<br>💬 Ask me about APIs, dashboards, and turning school projects into real apps.<br>⚡ Fun fact: my side projects always grow bigger than planned.
 
 
 ## 🌐 Socials:
