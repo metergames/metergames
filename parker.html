@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Parker - Meter Games</title>
+        <link rel="icon" href="/favicon-light.ico" type="image/x-icon" />
+        <link rel="icon" href="/favicon-light.ico" type="image/x-icon" media="(prefers-color-scheme: light)" />
+        <link rel="icon" href="/favicon-dark.ico" type="image/x-icon" media="(prefers-color-scheme: dark)" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body class="parker-theme">
+        <div class="container">
+            <header class="header">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/logo.png" alt="Meter Games Logo" />
+                    </a>
+                </div>
+                <nav>
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="slicestack.html" class="nav-link">Slice Stack</a>
+                </nav>
+            </header>
+
+            <div id="banner-container" class="banner-placeholder"></div>
+
+            <section class="hero">
+                <h1>Parker</h1>
+                <p>Master the art of parking in this feature-rich 3D simulation.</p>
+                <a href="https://meter-g-a-m-e-s.itch.io/parker" target="_blank" class="btn">Download on Windows</a>
+            </section>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Core Gameplay</h3>
+                    <ul class="feature-list">
+                        <li><strong>Progression System:</strong> Earn money, buy cars, and unlock the test drive area.</li>
+                        <li><strong>High Stakes:</strong> Timer + 3 Heart system. Collisions reduce rewards.</li>
+                        <li><strong>Camera Systems:</strong> Orthographic main view, First-Person, and 4 side cameras.</li>
+                        <li><strong>Assists:</strong> Navigation arrows and "Mini Camera" window for blind spots.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Vehicle Physics</h3>
+                    <ul class="feature-list">
+                        <li><strong>45 Drivable Cars:</strong> Each with unique handling and feel.</li>
+                        <li><strong>Full Control:</strong> Headlights, brake lights, reverse lights, and horns.</li>
+                        <li><strong>Drifting:</strong> Skid marks and audio feedback.</li>
+                        <li><strong>Special Units:</strong> Custom police car with toggleable sirens.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 30px">
+                <h3>Engineering & Tooling</h3>
+                <p>Parker isn't just a game; it's built on a robust framework.</p>
+                <ul class="feature-list">
+                    <li><strong>Custom Level Generator:</strong> I built a helper system to generate layouts instantly (static cars, empty spots, start/finish logic).</li>
+                    <li><strong>Analytics Integration:</strong> Tracks gameplay behavior to balance difficulty.</li>
+                    <li><strong>Reverse Parking Support:</strong> Automatically handles logic for complex parking requirements.</li>
+                </ul>
+            </div>
+
+            <section class="tech-showcase" style="margin-top: 60px; text-align: center">
+                <h2 style="margin-bottom: 20px">Behind the Scenes</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    To manage Parker's 75+ levels, we built a custom Unity Editor tool that generates valid parking layouts, reducing level design time by 90%.
+                </p>
+
+                <div style="background: var(--card-bg); padding: 10px; border-radius: 12px; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <img src="images/parker-tooling-screenshot.jpg" alt="Custom Level Generator" class="enlargeable-image" />
+                </div>
+            </section>
+
+            <div class="changelog-section">
+                <h2>Update Log</h2>
+                <div class="changelog-box">
+                    <div class="version-entry">
+                        <div class="version-header">
+                            <span class="version-title" style="color: var(--parker-accent)">Version 1.3</span>
+                            <span class="badge-latest" style="background: var(--parker-accent); color: #000;">Latest</span>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Added 20 new drivable vehicles.</li>
+                            <li>Added test drive area.</li>
+                            <li>Added tooltips to main menu options.</li>
+                            <li>Added reverse lights to all vehicles.</li>
+                            <li>Added analytics and detailed consent.</li>
+                            <li>Revamped save system.</li>
+                            <li>Improved lighting in scenes.</li>
+                            <li>Modified garage scene.</li>
+                            <li>Fixed handbrake not slowing vehicles down.</li>
+                            <li>Fixed vehicle audio not falling under SFX volume settings.</li>
+                            <li>Fixed UI audio bug.</li>
+                            <li>Fixed UI scaling.</li>
+                        </ul>
+                    </div>
+                    <div class="version-entry">
+                        <div class="version-header"><span class="version-title">Version 1.2</span></div>
+                        <ul class="feature-list">
+                            <li>Added new parking area.</li>
+                            <li>Added 75 levels.</li>
+                            <li>Fixed car movement upon level end.</li>
+                            <li>Fixed music change between scenes.</li>
+                            <li>Fixed bugs.</li>
+                        </ul>
+                    </div>
+                    <div class="version-entry">
+                        <div class="version-header"><span class="version-title">Version 1.1</span></div>
+                        <ul class="feature-list">
+                            <li>Added difficulty levels.</li>
+                            <li>Added 50 levels.</li>
+                            <li>Added new parking area.</li>
+                            <li>Added option to skip levels.</li>
+                            <li>Added control map for keyboard and Xbox controller.</li>
+                            <li>Changed parking lot skybox for a clearer environment.</li>
+                            <li>Fixed timer pausing on park.</li>
+                            <li>Fixed menu navigation bug.</li>
+                            <li>Optimized car setup.</li>
+                            <li>Optimized controller input.</li>
+                            <li>Added links to Privacy Policy and Terms And Conditions.</li>
+                        </ul>
+                    </div>
+                    <div class="version-entry">
+                        <div class="version-header"><span class="version-title">Version 1.0</span></div>
+                        <ul class="feature-list">
+                            <li>First release!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <p>&copy; 2026 Meter Games. All rights reserved.</p>
+                <p><a href="privacy.html">Privacy Policy</a></p>
+            </footer>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
