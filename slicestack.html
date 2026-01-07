@@ -7,6 +7,10 @@
         <link rel="icon" href="images/favicon-light.ico" type="image/x-icon" />
         <link rel="icon" href="images/favicon-light.ico" type="image/x-icon" media="(prefers-color-scheme: light)" />
         <link rel="icon" href="images/favicon-dark.ico" type="image/x-icon" media="(prefers-color-scheme: dark)" />
+        <script>
+            const savedTheme = localStorage.getItem("theme") || "dark";
+            document.documentElement.setAttribute("data-theme", savedTheme);
+        </script>
         <link rel="stylesheet" href="style.css" />
     </head>
     <body class="slice-theme">
