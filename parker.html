@@ -7,6 +7,10 @@
         <link rel="icon" href="images/favicon-light.ico" type="image/x-icon" />
         <link rel="icon" href="images/favicon-light.ico" type="image/x-icon" media="(prefers-color-scheme: light)" />
         <link rel="icon" href="images/favicon-dark.ico" type="image/x-icon" media="(prefers-color-scheme: dark)" />
+        <script>
+            const savedTheme = localStorage.getItem("theme") || "dark";
+            document.documentElement.setAttribute("data-theme", savedTheme);
+        </script>
         <link rel="stylesheet" href="style.css" />
     </head>
     <body class="parker-theme">
@@ -66,7 +70,7 @@
             <section class="tech-showcase" style="margin-top: 60px; text-align: center">
                 <h2 style="margin-bottom: 20px">Behind the Scenes</h2>
                 <p style="color: var(--text-muted); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
-                    To manage Parker's 75+ levels, we built a custom Unity Editor tool that generates valid parking layouts, reducing level design time by 90%.
+                    To manage Parker's 200+ levels, we built a custom Unity Editor tool that generates valid parking layouts, reducing level design time by 90%.
                 </p>
 
                 <div style="background: var(--card-bg); padding: 10px; border-radius: 12px; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.1);">
