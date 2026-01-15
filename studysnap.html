@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>StudySnap - Meter Games</title>
+        <link rel="icon" href="images/favicon-light.ico" type="image/x-icon" />
+        <link rel="icon" href="images/favicon-light.ico" type="image/x-icon" media="(prefers-color-scheme: light)" />
+        <link rel="icon" href="images/favicon-dark.ico" type="image/x-icon" media="(prefers-color-scheme: dark)" />
+        <script>
+            const savedTheme = localStorage.getItem("theme") || "dark";
+            document.documentElement.setAttribute("data-theme", savedTheme);
+        </script>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body class="study-theme">
+        <div class="container">
+            <header class="header">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/logo.png" alt="Meter Games Logo" />
+                    </a>
+                </div>
+                <nav>
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="parker.html" class="nav-link">Parker</a>
+                    <a href="slicestack.html" class="nav-link">Slice Stack</a>
+                </nav>
+            </header>
+
+            <section class="hero">
+                <h1>StudySnap</h1>
+                <p>A powerful C# WPF study tool featuring AI generation and data persistence.</p>
+                
+                <a href="https://github.com/metergames/study-snap" target="_blank" class="btn">View on GitHub</a>
+                
+                <div style="margin-top: 30px; margin-bottom: 20px;">
+                    <img 
+                        src="images/studysnap-dashboard.png" 
+                        alt="StudySnap Dashboard" 
+                        class="enlargeable-image" 
+                        style="width: 100%; max-width: 900px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 15px 30px rgba(0,0,0,0.3);"
+                    >
+                </div>
+            </section>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Features</h3>
+                    <ul class="feature-list">
+                        <li><strong>AI Generation:</strong> Create decks instantly using the OpenAI API with file attachment support.</li>
+                        <li><strong>Study Mode:</strong> Review concepts with a clean, focused UI and accuracy tracking.</li>
+                        <li><strong>Deck Management:</strong> Create, edit, search, and filter flashcard decks easily.</li>
+                        <li><strong>Data Persistence:</strong> JSON-based local storage ensures your data is always saved.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Tech Stack</h3>
+                    <ul class="feature-list">
+                        <li><strong>Language:</strong> C#</li>
+                        <li><strong>Framework:</strong> WPF (Windows Presentation Foundation)</li>
+                        <li><strong>Architecture:</strong> Object-Oriented Design (OOD)</li>
+                        <li><strong>Data:</strong> Local JSON Serialization</li>
+                    </ul>
+                </div>
+            </div>
+
+            <section class="tech-showcase" style="margin-top: 60px;">
+                <h2>Application Overview</h2>
+                <p>From deck creation to active recall, StudySnap provides a complete loop for students.</p>
+
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="text-align: center;">
+                        <img src="images/studysnap-ai.png" alt="AI Generator" class="enlargeable-image" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">AI Flashcard Generator</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="images/studysnap-session.png" alt="Study Session" class="enlargeable-image" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Active Study Session</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="images/studysnap-editor.png" alt="Deck Editor" class="enlargeable-image" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Deck Editor</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="card" style="margin-top: 50px;">
+                <h3>Project Status</h3>
+                <p>This project began as a school assignment and is now actively maintained as an independent project.</p>
+                <ul class="feature-list">
+                    <li><strong>Current Focus:</strong> UI/UX refinements and performance optimization.</li>
+                    <li><strong>Planned:</strong> Cloud sync, backup functionality, and advanced analytics.</li>
+                </ul>
+            </div>
+
+            <footer>
+                <p>&copy; 2026 Meter Games. All rights reserved.</p>
+                <p><a href="privacy.html">Privacy Policy</a></p>
+            </footer>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>

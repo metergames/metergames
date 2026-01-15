@@ -9,6 +9,7 @@
     --accent: #3b82f6;      /* Blue */
     --parker-accent: #f59e0b; /* Amber */
     --slice-accent: #8b5cf6;  /* Purple */
+    --study-accent: #2563eb; /* Royal Blue */
     --changelog-bg: rgba(0, 0, 0, 0.2);
     --scrollbar-track: rgba(0, 0, 0, 0.1);
     --scrollbar-thumb: rgba(255, 255, 255, 0.15);
@@ -51,8 +52,32 @@ ul { list-style: none; }
 .logo img { height: auto; max-height: 80px; width: auto; max-width: 100%; transition: opacity 0.2s; }
 
 /* Navigation */
-.nav-link { margin-left: 20px; color: var(--text-muted); font-size: 0.9rem; }
-.nav-link:hover { color: var(--accent); }
+.nav-link {
+    margin-left: 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+/* 1. Default Hover (Blue) */
+.nav-link:hover {
+    color: var(--accent);
+}
+
+/* 2. Parker Theme Hover (Amber) */
+.parker-theme .nav-link:hover {
+    color: var(--parker-accent);
+}
+
+/* 3. Slice Stack Theme Hover (Purple) */
+.slice-theme .nav-link:hover {
+    color: var(--slice-accent);
+}
+
+/* 4. StudySnap Theme Hover (Royal Blue) */
+.study-theme .nav-link:hover {
+    color: var(--study-accent);
+}
 
 /* Navigation Container Fix */
 .header nav {
@@ -72,8 +97,33 @@ ul { list-style: none; }
     align-items: center;
     transition: color 0.2s, transform 0.2s;
 }
-.theme-toggle:hover { color: var(--accent); transform: rotate(15deg); }
-.theme-toggle svg { width: 22px; height: 22px; fill: currentColor; }
+
+/* 1. Default Hover (Blue) & Rotation Effect */
+.theme-toggle:hover {
+    color: var(--accent);
+    transform: rotate(15deg);
+}
+
+/* 2. Parker Theme Hover (Amber) */
+.parker-theme .theme-toggle:hover {
+    color: var(--parker-accent);
+}
+
+/* 3. Slice Stack Theme Hover (Purple) */
+.slice-theme .theme-toggle:hover {
+    color: var(--slice-accent);
+}
+
+/* 4. StudySnap Theme Hover (Royal Blue) */
+.study-theme .theme-toggle:hover {
+    color: var(--study-accent);
+}
+
+.theme-toggle svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+}
 
 /* Hero Section */
 .hero { text-align: center; padding: 60px 20px; }
@@ -289,6 +339,15 @@ footer a:hover { color: var(--accent); text-decoration: underline; }
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 .banner-placeholder.loaded .game-banner-animated { opacity: 1; transform: scale(1); }
+
+/* StudySnap Theme (Royal Blue) */
+.study-theme .logo { color: var(--study-accent); }
+.study-theme .btn { background-color: var(--study-accent); }
+.study-theme li::before { color: var(--study-accent); }
+/* Filter Logic: Expects WHITE logo input to create Royal Blue result */
+.study-theme .logo img {
+    filter: brightness(0) saturate(100%) invert(28%) sepia(98%) saturate(2374%) hue-rotate(209deg) brightness(93%) contrast(93%);
+}
 
 /* Mobile */
 @media (max-width: 600px) {
