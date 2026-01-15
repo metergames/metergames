@@ -57,7 +57,8 @@ function updateLogo(theme) {
     // Check if we are on a game page by looking for the theme class
     const isGamePage = document.body.classList.contains("parker-theme") || 
                        document.body.classList.contains("slice-theme") ||
-                       document.body.classList.contains("study-theme");
+                       document.body.classList.contains("study-theme") ||
+                       document.body.classList.contains("about-theme");
 
     if (!isGamePage) {
         // We are on Index or Privacy page
