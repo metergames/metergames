@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>About - Meter Games</title>
+        <link rel="icon" href="images/favicon-light.ico" type="image/x-icon" />
+        <link rel="icon" href="images/favicon-light.ico" type="image/x-icon" media="(prefers-color-scheme: light)" />
+        <link rel="icon" href="images/favicon-dark.ico" type="image/x-icon" media="(prefers-color-scheme: dark)" />
+        <script>
+            const savedTheme = localStorage.getItem("theme") || "dark";
+            document.documentElement.setAttribute("data-theme", savedTheme);
+        </script>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body class="about-theme">
+        <div class="container">
+            <header class="header">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="images/logo.png" alt="Meter Games Logo" />
+                    </a>
+                </div>
+                <nav>
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="parker.html" class="nav-link">Parker</a>
+                    <a href="slicestack.html" class="nav-link">Slice Stack</a>
+                    <a href="studysnap.html" class="nav-link">StudySnap</a>
+                </nav>
+            </header>
+
+            <section class="hero">
+                <h1>Ryan Morov</h1>
+                <p>Software Engineer & Game Developer based in Quebec.</p>
+                
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+                    <a href="https://www.linkedin.com/in/ryan-morov" target="_blank" class="btn">
+                        Connect on LinkedIn
+                    </a>
+
+                    <a href="https://github.com/metergames" target="_blank" class="btn">
+                        GitHub Profile
+                    </a>
+                </div>
+            </section>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>The Developer</h3>
+                    <p>I am a Computer Science student at John Abbott College with a passion for building systems that just <em>feel</em> good to use.</p>
+                    <p>Whether it's the physics of a drift in <strong>Parker</strong> or the data persistence in <strong>StudySnap</strong>, I obsess over the details that bridge the gap between code and user experience.</p>
+                </div>
+
+                <div class="card" style="border-color: var(--about-accent);">
+                    <h3 style="color: var(--about-accent)">Latest Update</h3>
+                    <p>I recently broke down the custom level generation tool I built for Parker. It saved me 100+ hours of development time.</p>
+                    <a href="YOUR_LINKEDIN_POST_URL_HERE" target="_blank" style="color: var(--about-accent); font-weight: bold; text-decoration: underline;">Read the full breakdown on LinkedIn &rarr;</a>
+                </div>
+            </div>
+
+            <section class="tech-showcase" style="margin-top: 60px;">
+                <h2>Technical Toolkit</h2>
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); text-align: left;">
+                    <div class="card">
+                        <h3 style="font-size: 1.2rem;">Languages</h3>
+                        <ul class="feature-list">
+                            <li>C# (Expert)</li>
+                            <li>Python</li>
+                            <li>JavaScript / HTML / CSS</li>
+                            <li>SQL</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3 style="font-size: 1.2rem;">Frameworks</h3>
+                        <ul class="feature-list">
+                            <li>Unity 3D</li>
+                            <li>WPF / .NET</li>
+                            <li>Git / GitHub Actions</li>
+                            <li>Adobe Suite</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <p>&copy; 2026 Meter Games. All rights reserved.</p>
+                <p><a href="privacy.html">Privacy Policy</a></p>
+            </footer>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>

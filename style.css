@@ -6,10 +6,13 @@
     --text-main: #e0e0e0;
     --text-muted: #9ba1b0;
     --border-color: rgba(255, 255, 255, 0.05); /* Subtle white border */
-    --accent: #3b82f6;      /* Blue */
+    
+    --accent: #3b82f6;      /* Blue (Default) */
     --parker-accent: #f59e0b; /* Amber */
     --slice-accent: #8b5cf6;  /* Purple */
     --study-accent: #2563eb; /* Royal Blue */
+    --about-accent: #14b8a6; /* Teal */
+    
     --changelog-bg: rgba(0, 0, 0, 0.2);
     --scrollbar-track: rgba(0, 0, 0, 0.1);
     --scrollbar-thumb: rgba(255, 255, 255, 0.15);
@@ -23,10 +26,11 @@
     --text-main: #111827;      /* Dark Gray/Black Text */
     --text-muted: #4b5563;     /* Medium Gray Text */
     --border-color: rgba(0, 0, 0, 0.08); /* Subtle dark border */
+    
     --changelog-bg: rgba(0, 0, 0, 0.05);
-    --scrollbar-track: rgba(0, 0, 0, 0.05);       /* Very faint grey track */
-    --scrollbar-thumb: rgba(0, 0, 0, 0.2);         /* Visible dark grey handle */
-    --scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);   /* Darker on hover */
+    --scrollbar-track: rgba(0, 0, 0, 0.05);
+    --scrollbar-thumb: rgba(0, 0, 0, 0.2);
+    --scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,7 +40,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-main);
     line-height: 1.6;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth Theme Switch */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a { text-decoration: none; color: inherit; transition: 0.2s; }
@@ -59,30 +63,15 @@ ul { list-style: none; }
     transition: color 0.2s ease;
 }
 
-/* 1. Default Hover (Blue) */
+/* Default Hover (Blue) - Theme overrides are handled at the bottom */
 .nav-link:hover {
     color: var(--accent);
-}
-
-/* 2. Parker Theme Hover (Amber) */
-.parker-theme .nav-link:hover {
-    color: var(--parker-accent);
-}
-
-/* 3. Slice Stack Theme Hover (Purple) */
-.slice-theme .nav-link:hover {
-    color: var(--slice-accent);
-}
-
-/* 4. StudySnap Theme Hover (Royal Blue) */
-.study-theme .nav-link:hover {
-    color: var(--study-accent);
 }
 
 /* Navigation Container Fix */
 .header nav {
     display: flex;
-    align-items: center; /* Vertically centers the text and the button */
+    align-items: center;
 }
 
 /* --- THEME TOGGLE BUTTON --- */
@@ -98,25 +87,9 @@ ul { list-style: none; }
     transition: color 0.2s, transform 0.2s;
 }
 
-/* 1. Default Hover (Blue) & Rotation Effect */
 .theme-toggle:hover {
-    color: var(--accent);
+    color: var(--accent); /* Default Blue hover */
     transform: rotate(15deg);
-}
-
-/* 2. Parker Theme Hover (Amber) */
-.parker-theme .theme-toggle:hover {
-    color: var(--parker-accent);
-}
-
-/* 3. Slice Stack Theme Hover (Purple) */
-.slice-theme .theme-toggle:hover {
-    color: var(--slice-accent);
-}
-
-/* 4. StudySnap Theme Hover (Royal Blue) */
-.study-theme .theme-toggle:hover {
-    color: var(--study-accent);
 }
 
 .theme-toggle svg {
@@ -156,6 +129,22 @@ ul { list-style: none; }
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* --- Secondary Button (Outline Style) --- */
+/* Use this for the GitHub button to remove the "shine" artifacts */
+.btn-secondary {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    background-image: none !important; 
+    box-shadow: none;
+}
+
+.btn-secondary:hover {
+    border-color: var(--text-muted);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
 /* Grids & Cards */
 .grid {
     display: grid;
@@ -168,11 +157,11 @@ ul { list-style: none; }
     background: var(--card-bg);
     border-radius: 12px;
     padding: 30px;
-    border: 1px solid var(--border-color); /* Updated to variable */
+    border: 1px solid var(--border-color);
     transition: 0.3s;
 }
 
-.card:hover { transform: translateY(-5px); border-color: var(--accent); } /* Highlight border on hover */
+.card:hover { transform: translateY(-5px); border-color: var(--accent); } /* Default Blue hover */
 .card h3 { font-size: 1.5rem; margin-bottom: 10px; }
 .card p { color: var(--text-muted); margin-bottom: 20px; }
 
@@ -203,23 +192,6 @@ ul { list-style: none; }
 }
 .mobile-screenshot:hover { transform: translateY(-10px); }
 
-/* Theme Colors */
-.parker-theme .logo { color: var(--parker-accent); }
-.parker-theme .btn { background-color: var(--parker-accent); color: #000; }
-.parker-theme li::before { color: var(--parker-accent); }
-/* Filter Logic: Expects WHITE logo input to create Amber result */
-.parker-theme .logo img {
-    filter: brightness(0) saturate(100%) invert(78%) sepia(68%) saturate(3400%) hue-rotate(359deg) brightness(101%) contrast(106%);
-}
-
-.slice-theme .logo { color: var(--slice-accent); }
-.slice-theme .btn { background-color: var(--slice-accent); }
-.slice-theme li::before { color: var(--slice-accent); }
-/* Filter Logic: Expects WHITE logo input to create Purple result */
-.slice-theme .logo img {
-    filter: brightness(0) saturate(100%) invert(53%) sepia(91%) saturate(3000%) hue-rotate(227deg) brightness(97%) contrast(94%);
-}
-
 /* Footer */
 footer {
     text-align: center;
@@ -232,36 +204,13 @@ footer {
 
 footer a { transition: color 0.2s ease; text-decoration: none; }
 footer a:hover { color: var(--accent); text-decoration: underline; }
-.parker-theme footer a:hover { color: var(--parker-accent); }
-.slice-theme footer a:hover { color: var(--slice-accent); }
 
-/* --- Tech Showcase (Behind the Scenes) --- */
-.tech-showcase {
-    margin-top: 60px;
-    text-align: center;
-}
-
-.tech-showcase h2 {
-    margin-bottom: 20px;
-}
-
-.tech-showcase p {
-    color: var(--text-muted);
-    margin-bottom: 30px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.tech-showcase-link {
-    color: var(--accent);
-    font-weight: 600;
-    margin-left: 5px;
-    white-space: nowrap;
-}
-.tech-showcase-link:hover {
-    text-decoration: underline;
-}
+/* --- Tech Showcase --- */
+.tech-showcase { margin-top: 60px; text-align: center; }
+.tech-showcase h2 { margin-bottom: 20px; }
+.tech-showcase p { color: var(--text-muted); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+.tech-showcase-link { color: var(--accent); font-weight: 600; margin-left: 5px; white-space: nowrap; }
+.tech-showcase-link:hover { text-decoration: underline; }
 
 .tech-frame {
     background: var(--card-bg);
@@ -270,10 +219,7 @@ footer a:hover { color: var(--accent); text-decoration: underline; }
     display: inline-block;
     border: 1px solid var(--border-color);
 }
-
-.tech-frame img {
-    display: block; 
-}
+.tech-frame img { display: block; }
 
 /* Changelog */
 .changelog-section { max-width: 800px; margin: 60px auto 0; }
@@ -293,21 +239,10 @@ footer a:hover { color: var(--accent); text-decoration: underline; }
 .badge-latest { font-size: 0.7rem; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 800; }
 
 /* Scrollbar */
-.changelog-box::-webkit-scrollbar {
-    width: 8px;
-}
-.changelog-box::-webkit-scrollbar-track {
-    background: var(--scrollbar-track); /* Uses variable */
-    margin-block: 10px;
-    border-radius: 4px;
-}
-.changelog-box::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb); /* Uses variable */
-    border-radius: 4px;
-}
-.changelog-box::-webkit-scrollbar-thumb:hover {
-    background: var(--scrollbar-thumb-hover); /* Uses variable */
-}
+.changelog-box::-webkit-scrollbar { width: 8px; }
+.changelog-box::-webkit-scrollbar-track { background: var(--scrollbar-track); margin-block: 10px; border-radius: 4px; }
+.changelog-box::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
+.changelog-box::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
 
 /* Lightbox */
 .enlargeable-image { cursor: zoom-in; max-width: 100%; height: auto; border-radius: 8px; transition: opacity 0.2s ease; }
@@ -318,7 +253,6 @@ footer a:hover { color: var(--accent); text-decoration: underline; }
     animation: zoomIn 0.25s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 .lightbox-clone.closing { animation: zoomOut 0.2s ease-in forwards; }
-
 @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 @keyframes zoomOut { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(0.9); } }
 
@@ -340,18 +274,58 @@ footer a:hover { color: var(--accent); text-decoration: underline; }
 }
 .banner-placeholder.loaded .game-banner-animated { opacity: 1; transform: scale(1); }
 
-/* StudySnap Theme (Royal Blue) */
+
+/* ========================================= */
+/* THEME OVERRIDES SYSTEM                    */
+/* ========================================= */
+
+/* 1. Parker Theme (Amber) */
+.parker-theme .logo { color: var(--parker-accent); }
+.parker-theme .btn { background-color: var(--parker-accent); color: #000; }
+.parker-theme li::before { color: var(--parker-accent); }
+.parker-theme .nav-link:hover { color: var(--parker-accent); }
+.parker-theme .theme-toggle:hover { color: var(--parker-accent); }
+.parker-theme .card:hover { border-color: var(--parker-accent); }
+.parker-theme footer a:hover { color: var(--parker-accent); }
+/* Filter: White -> Amber */
+.parker-theme .logo img {
+    filter: brightness(0) saturate(100%) invert(78%) sepia(68%) saturate(3400%) hue-rotate(359deg) brightness(101%) contrast(106%);
+}
+
+/* 2. Slice Theme (Purple) */
+.slice-theme .logo { color: var(--slice-accent); }
+.slice-theme .btn { background-color: var(--slice-accent); }
+.slice-theme li::before { color: var(--slice-accent); }
+.slice-theme .nav-link:hover { color: var(--slice-accent); }
+.slice-theme .theme-toggle:hover { color: var(--slice-accent); }
+.slice-theme .card:hover { border-color: var(--slice-accent); }
+.slice-theme footer a:hover { color: var(--slice-accent); }
+/* Filter: White -> Purple */
+.slice-theme .logo img {
+    filter: brightness(0) saturate(100%) invert(53%) sepia(91%) saturate(3000%) hue-rotate(227deg) brightness(97%) contrast(94%);
+}
+
+/* 3. StudySnap Theme (Royal Blue) */
 .study-theme .logo { color: var(--study-accent); }
 .study-theme .btn { background-color: var(--study-accent); }
 .study-theme li::before { color: var(--study-accent); }
-/* Filter Logic: Expects WHITE logo input to create Royal Blue result */
+.study-theme .nav-link:hover { color: var(--study-accent); }
+.study-theme .theme-toggle:hover { color: var(--study-accent); }
+.study-theme .card:hover { border-color: var(--study-accent); }
+.study-theme footer a:hover { color: var(--study-accent); }
+/* Filter: White -> Royal Blue */
 .study-theme .logo img {
     filter: brightness(0) saturate(100%) invert(28%) sepia(98%) saturate(2374%) hue-rotate(209deg) brightness(93%) contrast(93%);
 }
 
-/* Mobile */
-@media (max-width: 600px) {
-    .hero h1 { font-size: 2rem; }
-    .header { flex-direction: column; gap: 20px; }
-    .theme-toggle { margin-left: 0; margin-top: 10px; } /* Adjust button for mobile */
+/* 4. About Theme (Teal) */
+.about-theme .logo { color: var(--about-accent); }
+.about-theme .btn { background-color: var(--about-accent); }
+.about-theme .nav-link:hover { color: var(--about-accent); }
+.about-theme .theme-toggle:hover { color: var(--about-accent); }
+.about-theme .card:hover { border-color: var(--about-accent); }  /* <--- Fixes Card Hover */
+.about-theme footer a:hover { color: var(--about-accent); }      /* <--- Fixes Footer Hover */
+/* Filter: White -> Teal */
+.about-theme .logo img {
+    filter: brightness(0) saturate(100%) invert(65%) sepia(60%) saturate(450%) hue-rotate(125deg) brightness(88%) contrast(88%);
 }
