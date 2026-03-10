@@ -129,29 +129,50 @@ function openLightbox(originalImg) {
 }
 
 /**
- * SPOTLIGHT EFFECT
- * Tracks mouse movement over cards to move the glowing gradient.
+ * SPOTLIGHT & 3D TILT EFFECT
+ * Tracks mouse movement to move the glowing gradient and physically tilt the card.
  */
 function initSpotlight() {
     const cards = document.querySelectorAll('.card');
     
     cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transition = 'border-color 0.3s ease'; 
+        });
+
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
-            // Calculate mouse position relative to the card
+            
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            // Send the coordinates to CSS variables
+            // Update Spotlight Variables
             card.style.setProperty('--mouse-x', `${x}px`);
             card.style.setProperty('--mouse-y', `${y}px`);
+            
+            // Calculate 3D Tilt Math
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Max degrees of tilt
+            const rotateX = ((y - centerY) / centerY) * -2;
+            const rotateY = ((x - centerX) / centerX) * 2;
+            
+            // Apply the 3D rotation
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1, 1, 1)`;
+        });
+
+        // When mouse leaves, put the slow transition back and reset the card to flat
+        card.addEventListener('mouseleave', () => {
+            card.style.transition = 'transform 0.5s ease, border-color 0.3s ease';
+            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
         });
     });
 }
 
 /**
  * KONAMI CODE EASTER EGG
- * Listens for: Up, Up, Down, Down, Left, Right, Left, Right, B, A
+ * Listens for Konami code key sequence and triggers a barrel roll + achievement toast when activated.
  */
 function initKonami() {
     // The keycodes for the Konami sequence
