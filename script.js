@@ -3,7 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
     initBanner();
     initLightbox();
     initTheme();
+    initSpotlight();
+    initKonami();
 });
+
+console.log("%cTry typing the Konami code on the keyboard for a surprise...", "color: #14b8a6; font-size: 14px; font-weight: bold;");
 
 /**
  * Initializes the Theme Toggle (Dark/Light).
@@ -122,4 +126,103 @@ function openLightbox(originalImg) {
     };
 
     document.body.appendChild(clone);
+}
+
+/**
+ * SPOTLIGHT EFFECT
+ * Tracks mouse movement over cards to move the glowing gradient.
+ */
+function initSpotlight() {
+    const cards = document.querySelectorAll('.card');
+    
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            // Calculate mouse position relative to the card
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            // Send the coordinates to CSS variables
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
+}
+
+/**
+ * KONAMI CODE EASTER EGG
+ * Listens for: Up, Up, Down, Down, Left, Right, Left, Right, B, A
+ */
+function initKonami() {
+    // The keycodes for the Konami sequence
+    const konamiSequence = [
+        "ArrowUp", "ArrowUp", 
+        "ArrowDown", "ArrowDown", 
+        "ArrowLeft", "ArrowRight", 
+        "ArrowLeft", "ArrowRight", 
+        "b", "a"
+    ];
+    let position = 0;
+
+    document.addEventListener("keydown", (e) => {
+        const key = e.key.toLowerCase() === 'b' || e.key.toLowerCase() === 'a' ? e.key.toLowerCase() : e.key;
+        
+        // If the key matches the current position in the sequence
+        if (key === konamiSequence[position]) {
+            position++;
+            
+            // If the whole sequence is completed
+            if (position === konamiSequence.length) {
+                triggerEasterEgg();
+                position = 0; // Reset so they can do it again
+            }
+        } else {
+            position = 0; // Reset if they mess up
+        }
+    });
+}
+
+/**
+ * Triggers the Easter Egg: A barrel roll animation and a secret achievement toast.
+ */
+function triggerEasterEgg() {
+    // Do a barrel roll
+    document.body.classList.add("barrel-roll");
+    
+    // Remove the class after animation finishes so it can be triggered again
+    setTimeout(() => {
+        document.body.classList.remove("barrel-roll");
+
+        showAchievement("Cheat Code Activated!", "Real gamer over here! +30 lives... right?");
+    }, 1500);
+}
+
+/**
+ * Creates and displays a sleek gaming-style achievement toast
+ */
+function showAchievement(title, message) {
+    // Prevent spamming if they enter the code multiple times fast
+    if (document.querySelector(".achievement-toast")) return;
+
+    // Create the toast element
+    const toast = document.createElement("div");
+    toast.className = "achievement-toast";
+    toast.innerHTML = `
+        <div class="achievement-text">
+            <h4>${title}</h4>
+            <p>${message}</p>
+        </div>
+    `;
+    
+    document.body.appendChild(toast);
+
+    // Trigger the slide-up animation
+    setTimeout(() => toast.classList.add("show"), 10);
+
+    // Remove it after 4 seconds
+    setTimeout(() => {
+        toast.classList.remove("show");
+        // Wait for slide-down animation to finish before deleting the element
+        setTimeout(() => toast.remove(), 400);
+    }, 4000);
 }

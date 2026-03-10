@@ -362,3 +362,96 @@ footer a:hover { color: var(--accent); text-decoration: underline; }
 .about-theme .logo img {
     filter: brightness(0) saturate(100%) invert(65%) sepia(60%) saturate(450%) hue-rotate(125deg) brightness(88%) contrast(88%);
 }
+
+/* --- Spotlight Card Effect --- */
+.card {
+    position: relative;
+    overflow: hidden; /* Keeps the glow inside the card borders */
+}
+
+/* The invisible glow element */
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* Draws a glowing circle at the exact X/Y of the mouse */
+    background: radial-gradient(
+        800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        rgba(255, 255, 255, 0.06), 
+        transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* Prevents the glow from blocking clicks */
+    z-index: 0;
+}
+
+/* Light mode adjustment for the glow */
+[data-theme="light"] .card::before {
+    background: radial-gradient(
+        800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        rgba(0, 0, 0, 0.06), 
+        transparent 40%
+    );
+}
+
+.card:hover::before {
+    opacity: 1; /* Fade in the spotlight when hovered */
+}
+
+/* Make sure all your text and buttons stay ON TOP of the glow */
+.card > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Konami Code Barrel Roll --- */
+.barrel-roll {
+    animation: barrelRoll 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes barrelRoll {
+    0% { transform: rotate(0deg) scale(1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+.achievement-toast {
+    position: fixed;
+    bottom: -100px; /* Hidden off-screen initially */
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--card-bg);
+    border: 1px solid var(--accent);
+    /* Gives it a nice glowing effect */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 15px rgba(59, 130, 246, 0.4); 
+    padding: 12px 25px;
+    border-radius: 50px;
+    z-index: 10000;
+    pointer-events: none; /* So it doesn't block clicks */
+    
+    /* A bouncy gaming-style slide animation */
+    transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* When the class is added via JS, it slides up */
+.achievement-toast.show {
+    bottom: 40px;
+}
+
+.achievement-text h4 {
+    margin: 0 0 2px 0;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.achievement-text p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* Soften the glow in Light Mode */
+[data-theme="light"] .achievement-toast {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1), 0 0 15px rgba(59, 130, 246, 0.2);
+}
