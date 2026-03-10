@@ -116,6 +116,9 @@ ul { list-style: none; }
     background-position: 100% 0 !important;
     transition: background-position 0.3s ease-out, transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    -webkit-font-smoothing: antialiased;
+    backface-visibility: hidden;
+    will-change: transform;
 }
 
 .btn:hover {
@@ -463,4 +466,15 @@ footer a:hover { color: var(--accent); text-decoration: underline; }
 /* Soften the glow in Light Mode */
 [data-theme="light"] .achievement-toast {
     box-shadow: 0 10px 30px rgba(0,0,0,0.1), 0 0 15px rgba(59, 130, 246, 0.2);
+}
+
+@keyframes fadeUp {
+    0% { 
+        opacity: 0; 
+        transform: translateY(30px); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
 }

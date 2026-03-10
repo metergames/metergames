@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initTheme();
     initSpotlight();
     initKonami();
+    initMagneticButtons();
+    initPageTransitions();
 });
 
 console.log("%cTry typing the Konami code on the keyboard for a surprise...", "color: #14b8a6; font-size: 14px; font-weight: bold;");
@@ -246,4 +248,65 @@ function showAchievement(title, message) {
         // Wait for slide-down animation to finish before deleting the element
         setTimeout(() => toast.remove(), 400);
     }, 4000);
+}
+
+/**
+ * MAGNETIC BUTTONS
+ * Buttons subtly pull towards the mouse cursor on hover.
+ */
+function initMagneticButtons() {
+    const buttons = document.querySelectorAll('.btn');
+    
+    buttons.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            // Calculate distance from the center of the button
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            // Prevent sub-pixel rendering (which causes blur)
+            const moveX = Math.round(x * 0.08);
+            const moveY = Math.round(y * 0.12);
+            
+            // Apply the movement with a Z-axis lock to keep text crisp
+            btn.style.transform = `translate(${moveX}px, ${moveY}px) translateZ(0)`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            // Snap back to default CSS rules when mouse leaves
+            btn.style.transform = ''; 
+        });
+    });
+}
+
+/**
+ * CASCADING PAGE LOAD ANIMATIONS
+ * Smoothly fades and floats elements in sequentially on load.
+ */
+function initPageTransitions() {
+    // Stagger the Hero Section
+    const heroElements = document.querySelectorAll('.hero h1, .hero p, .hero div, .hero .btn, .hero .screenshot-row');
+    heroElements.forEach((el, index) => {
+        el.style.opacity = '0'; 
+        el.style.animation = `fadeUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) ${index * 0.1}s forwards`;
+        
+        // Once the animation finishes, unlock the transform property so hover effects work
+        el.addEventListener('animationend', () => {
+            el.style.opacity = '1';      // Lock opacity to visible
+            el.style.animation = 'none'; // Delete the animation lock
+        });
+    });
+
+    // Stagger the Grid Cards
+    const cards = document.querySelectorAll('.card');
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.animation = `fadeUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) ${0.3 + (index * 0.1)}s forwards`;
+        
+        // Unlock the cards so the 3D tilt can take over
+        card.addEventListener('animationend', () => {
+            card.style.opacity = '1';
+            card.style.animation = 'none';
+        });
+    });
 }
