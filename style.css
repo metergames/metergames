@@ -12,6 +12,7 @@
     --slice-accent: #8b5cf6;  /* Purple */
     --study-accent: #2563eb; /* Royal Blue */
     --about-accent: #14b8a6; /* Teal */
+    --pit-accent: #dc2626;   /* Racing Red */
     
     --changelog-bg: rgba(0, 0, 0, 0.2);
     --scrollbar-track: rgba(0, 0, 0, 0.1);
@@ -477,4 +478,17 @@ footer a:hover { color: var(--accent); text-decoration: underline; }
         opacity: 1; 
         transform: translateY(0); 
     }
+}
+
+/* Pit Wall Theme (Racing Red) */
+.pit-theme .logo { color: var(--pit-accent); }
+.pit-theme .btn { background-color: var(--pit-accent); }
+.pit-theme li::before { color: var(--pit-accent); }
+.pit-theme .nav-link:hover { color: var(--pit-accent); }
+.pit-theme .theme-toggle:hover { color: var(--pit-accent); }
+.pit-theme .card:hover { border-color: var(--pit-accent); }
+.pit-theme footer a:hover { color: var(--pit-accent); }
+/* Filter Logic: Expects WHITE logo input to create Red result */
+.pit-theme .logo img {
+    filter: brightness(0) saturate(100%) invert(27%) sepia(85%) saturate(3011%) hue-rotate(346deg) brightness(96%) contrast(93%);
 }

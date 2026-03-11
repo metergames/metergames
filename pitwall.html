@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pit Wall - Meter Games</title>
+        <link rel="icon" href="images/favicon-light.ico" type="image/x-icon" />
+        <link rel="icon" href="images/favicon-light.ico" type="image/x-icon" media="(prefers-color-scheme: light)" />
+        <link rel=\"icon" href="images/favicon-dark.ico" type="image/x-icon" media="(prefers-color-scheme: dark)" />
+        <script>
+            const savedTheme = localStorage.getItem("theme") || "dark";
+            document.documentElement.setAttribute("data-theme", savedTheme);
+        </script>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body class="pit-theme">
+        <div class="container">
+            <header class="header">
+                <div class="logo">
+                    <a href="/">
+                        <img src="images/logo.png" alt="Meter Games Logo" />
+                    </a>
+                </div>
+                <nav>
+                    <a href="/metergames" class="nav-link">Home</a>
+                    <a href="parker" class="nav-link">Parker</a>
+                    <a href="slicestack" class="nav-link">Slice Stack</a>
+                    <a href="studysnap" class="nav-link">StudySnap</a>
+                    <a href="pitwall" class="nav-link" style="color: var(--pit-accent);">Pit Wall</a>
+                    <a href="about" class="nav-link">About</a>
+                </nav>
+            </header>
+
+            <section class="hero">
+                <h1>Pit Wall</h1>
+                <p>A high-performance Formula 1 data dashboard delivering real-time statistics and historical metrics.</p>
+                
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+                    <a href="https://metergames.github.io/f1-pit-wall/" target="_blank" class="btn">
+                        Live Demo
+                    </a>
+                    <a href="https://github.com/metergames/f1-pit-wall" target="_blank" class="btn">
+                        View Source
+                    </a>
+                </div>
+                
+                <div style="margin-top: 30px; margin-bottom: 20px;">
+                    <img 
+                        src="images/pitwall-dashboard.png" 
+                        alt="Pit Wall Overview" 
+                        class="enlargeable-image" 
+                        style="width: 100%; max-width: 900px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 15px 30px rgba(0,0,0,0.3);"
+                    >
+                </div>
+            </section>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Features</h3>
+                    <ul class="feature-list">
+                        <li><strong>Data Pipelines:</strong> Asynchronous fetching from multiple REST endpoints via f1api.dev.</li>
+                        <li><strong>Dynamic Dashboard:</strong> Visualize seasonal metrics, race results, and driver standings.</li>
+                        <li><strong>Responsive UI:</strong> Built with React for a highly fluid and interactive user experience.</li>
+                        <li><strong>Optimized Routing:</strong> Clean data parsing and state management to prevent API throttling.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Tech Stack</h3>
+                    <ul class="feature-list">
+                        <li><strong>Language:</strong> TypeScript</li>
+                        <li><strong>Framework:</strong> React</li>
+                        <li><strong>Build Tool:</strong> Vite</li>
+                        <li><strong>External Data:</strong> f1api.dev (Community API)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <section class="tech-showcase" style="margin-top: 60px;">
+                <h2>Interface Deep Dive</h2>
+                <p>Clean data visualization for complex racing metrics.</p>
+
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="text-align: center;">
+                        <img src="images/pitwall-standings.png" alt="Championship Standings" class="enlargeable-image" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Previous Race Results & Championship Standings</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="images/pitwall-schedule.png" alt="Race Schedule" class="enlargeable-image" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Season Schedule & Results</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="images/pitwall-driver.png" alt="Driver Details" class="enlargeable-image" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Detailed Driver Statistics</p>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <p>&copy; 2026 Meter Games. All rights reserved.</p>
+                <p><a href="privacy">Privacy Policy</a></p>
+            </footer>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>

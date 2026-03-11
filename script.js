@@ -64,6 +64,7 @@ function updateLogo(theme) {
     const isGamePage = document.body.classList.contains("parker-theme") || 
                        document.body.classList.contains("slice-theme") ||
                        document.body.classList.contains("study-theme") ||
+                       document.body.classList.contains("pit-theme") ||
                        document.body.classList.contains("about-theme");
 
     if (!isGamePage) {
