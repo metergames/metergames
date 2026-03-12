@@ -15,28 +15,14 @@
     </head>
     <body class="parker-theme">
         <div class="container">
-            <header class="header">
-                <div class="logo">
-                    <a href="/metergames">
-                        <img src="images/logo.png" alt="Meter Games Logo" />
-                    </a>
-                </div>
-                <nav>
-                    <a href="/metergames" class="nav-link">Home</a>
-                    <a href="parker" class="nav-link" style="color: var(--parker-accent);">Parker</a>
-                    <a href="slicestack" class="nav-link">Slice Stack</a>
-                    <a href="studysnap" class="nav-link">StudySnap</a>
-                    <a href="pitwall" class="nav-link">Pit Wall</a>
-                    <a href="about" class="nav-link">About</a>
-                </nav>
-            </header>
+            <site-header page="parker"></site-header>
 
             <div id="banner-container" class="banner-placeholder"></div>
 
             <section class="hero">
                 <h1>Parker</h1>
                 <p>Master the art of parking in this feature-rich 3D simulation.</p>
-                <a href="https://meter-g-a-m-e-s.itch.io/parker" target="_blank" class="btn">Download on Windows</a>
+                <a href="https://meter-g-a-m-e-s.itch.io/parker" target="_blank" rel="noreferrer" class="btn">Download on Windows</a>
             </section>
 
             <div class="grid">
@@ -76,7 +62,7 @@
                 <p>
                     To manage Parker's 200+ levels, I built a custom Unity Editor tool that generates valid parking layouts, reducing level design time by 90%.
                     
-                    <a href="https://www.linkedin.com/posts/ryan-morov_%F0%9D%97%95%F0%9D%98%82%F0%9D%97%B6%F0%9D%97%B9%F0%9D%97%B1%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4-%F0%9D%97%B0%F0%9D%98%82%F0%9D%98%80%F0%9D%98%81%F0%9D%97%BC%F0%9D%97%BA-%F0%9D%97%BD%F0%9D%97%B6%F0%9D%97%BD%F0%9D%97%B2%F0%9D%97%B9%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B2%F0%9D%98%80-activity-7413429429395165184-LWlc?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEdm79cBYIib1x8q_vnQTFbfkhciuY0DS-c" target="_blank" class="tech-showcase-link">Read the post on LinkedIn &rarr;</a>
+                    <a href="https://www.linkedin.com/posts/ryan-morov_%F0%9D%97%95%F0%9D%98%82%F0%9D%97%B6%F0%9D%97%B9%F0%9D%97%B1%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B4-%F0%9D%97%B0%F0%9D%98%82%F0%9D%98%80%F0%9D%98%81%F0%9D%97%BC%F0%9D%97%BA-%F0%9D%97%BD%F0%9D%97%B6%F0%9D%97%BD%F0%9D%97%B2%F0%9D%97%B9%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B2%F0%9D%98%80-activity-7413429429395165184-LWlc?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEdm79cBYIib1x8q_vnQTFbfkhciuY0DS-c" target="_blank" rel="noreferrer" class="tech-showcase-link">Read the post on LinkedIn &rarr;</a>
                 </p>
 
                 <div class="tech-frame">
@@ -142,10 +128,7 @@
                 </div>
             </div>
 
-            <footer>
-                <p>&copy; 2026 Meter Games. All rights reserved.</p>
-                <p><a href="privacy">Privacy Policy</a></p>
-            </footer>
+            <site-footer></site-footer>
         </div>
         <script src="script.js"></script>
     </body>

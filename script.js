@@ -1,4 +1,57 @@
 /* script.js */
+const SITE_HOME_PATH = "/metergames";
+const SITE_NAV_ITEMS = [
+    { page: "home", label: "Home", href: SITE_HOME_PATH },
+    { page: "parker", label: "Parker", href: "parker" },
+    { page: "slicestack", label: "Slice Stack", href: "slicestack" },
+    { page: "studysnap", label: "StudySnap", href: "studysnap" },
+    { page: "pitwall", label: "Pit Wall", href: "pitwall" },
+    { page: "about", label: "About", href: "about" }
+];
+
+class SiteHeader extends HTMLElement {
+    connectedCallback() {
+        const activePage = this.getAttribute("page") || "home";
+
+        this.innerHTML = `
+            <header class="header">
+                <div class="logo">
+                    <a href="${SITE_HOME_PATH}">
+                        <img src="images/logo.png" alt="Meter Games Logo" />
+                    </a>
+                </div>
+                <nav>
+                    ${SITE_NAV_ITEMS.map((item) => renderNavLink(item, activePage)).join("")}
+                </nav>
+            </header>
+        `;
+    }
+}
+
+class SiteFooter extends HTMLElement {
+    connectedCallback() {
+        this.innerHTML = `
+            <footer>
+                <p>&copy; 2026 Meter Games. All rights reserved.</p>
+                <p><a href="privacy">Privacy Policy</a></p>
+            </footer>
+        `;
+    }
+}
+
+function renderNavLink(item, activePage) {
+    const isActive = item.page === activePage;
+
+    return `
+        <a href="${item.href}" class="nav-link${isActive ? " active" : ""}"${isActive ? ' aria-current="page"' : ""}>
+            ${item.label}
+        </a>
+    `;
+}
+
+customElements.define("site-header", SiteHeader);
+customElements.define("site-footer", SiteFooter);
+
 document.addEventListener("DOMContentLoaded", () => {
     initBanner();
     initLightbox();
