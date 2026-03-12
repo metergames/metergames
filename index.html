@@ -15,19 +15,7 @@
     </head>
     <body>
         <div class="container">
-            <header class="header">
-                <div class="logo">
-                    <img src="images/logo.png" alt="Meter Games Logo" />
-                </div>
-                <nav>
-                    <a href="/metergames" class="nav-link" style="color: var(--accent);">Home</a>
-                    <a href="parker" class="nav-link">Parker</a>
-                    <a href="slicestack" class="nav-link">Slice Stack</a>
-                    <a href="studysnap" class="nav-link">StudySnap</a>
-                    <a href="pitwall" class="nav-link">Pit Wall</a>
-                    <a href="about" class="nav-link">About</a>
-                </nav>
-            </header>
+            <site-header page="home"></site-header>
 
             <section class="hero">
                 <h1>Building polished,<br />system-driven experiences.</h1>
@@ -38,32 +26,29 @@
                 <a href="parker" class="card">
                     <h3 style="color: var(--parker-accent)">Parker</h3>
                     <p>A feature-rich 3D parking simulation with 45+ cars, progression systems, and custom tooling.</p>
-                    <span class="btn" style="background: var(--parker-accent); color: #000">View Game &rarr;</span>
+                    <span class="btn" style="background: var(--parker-accent); color: #000">View Game</span>
                 </a>
 
                 <a href="studysnap" class="card">
                     <h3 style="color: var(--study-accent)">StudySnap</h3>
                     <p>A C# WPF study application featuring AI generation, progress tracking, and local persistence.</p>
-                    <span class="btn" style="background: var(--study-accent)">View Project &rarr;</span>
+                    <span class="btn" style="background: var(--study-accent)">View Project</span>
                 </a>
 
                 <a href="pitwall" class="card">
                     <h3 style="color: var(--pit-accent)">Pit Wall</h3>
                     <p>A dynamic Formula 1 dashboard built with React and TypeScript, visualizing real-time API data.</p>
-                    <span class="btn" style="background: var(--pit-accent)">View Project &rarr;</span>
+                    <span class="btn" style="background: var(--pit-accent)">View Project</span>
                 </a>
 
                 <a href="slicestack" class="card">
                     <h3 style="color: var(--slice-accent)">Slice Stack</h3>
                     <p>A calm, premium stacking arcade game. No ads, just smooth physics and satisfying progression.</p>
-                    <span class="btn" style="background: var(--slice-accent)">View Game &rarr;</span>
+                    <span class="btn" style="background: var(--slice-accent)">View Game</span>
                 </a>
             </section>
 
-            <footer>
-                <p>&copy; 2026 Meter Games. All rights reserved.</p>
-                <p><a href="privacy">Privacy Policy</a></p>
-            </footer>
+            <site-footer></site-footer>
         </div>
         <script src="script.js"></script>
     </body>

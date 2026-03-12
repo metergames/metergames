@@ -15,32 +15,18 @@
     </head>
     <body class="study-theme">
         <div class="container">
-            <header class="header">
-                <div class="logo">
-                    <a href="/metergames">
-                        <img src="images/logo.png" alt="Meter Games Logo" />
-                    </a>
-                </div>
-                <nav>
-                    <a href="/metergames" class="nav-link">Home</a>
-                    <a href="parker" class="nav-link">Parker</a>
-                    <a href="slicestack" class="nav-link">Slice Stack</a>
-                    <a href="studysnap" class="nav-link" style="color: var(--study-accent);">StudySnap</a>
-                    <a href="pitwall" class="nav-link">Pit Wall</a>
-                    <a href="about" class="nav-link">About</a>
-                </nav>
-            </header>
+            <site-header page="studysnap"></site-header>
 
             <section class="hero">
                 <h1>StudySnap</h1>
                 <p>A powerful C# WPF study tool featuring AI generation and data persistence.</p>
                 
                 <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px;">
-                    <a href="https://github.com/metergames/study-snap/releases/latest" target="_blank" class="btn">
+                    <a href="https://github.com/metergames/study-snap/releases/latest" target="_blank" rel="noreferrer" class="btn">
                         Download App
                     </a>
 
-                    <a href="https://github.com/metergames/study-snap" target="_blank" class="btn">
+                    <a href="https://github.com/metergames/study-snap" target="_blank" rel="noreferrer" class="btn">
                         View Source
                     </a>
                 </div>
@@ -110,10 +96,7 @@
                 </ul>
             </div>
 
-            <footer>
-                <p>&copy; 2026 Meter Games. All rights reserved.</p>
-                <p><a href="privacy">Privacy Policy</a></p>
-            </footer>
+            <site-footer></site-footer>
         </div>
         <script src="script.js"></script>
     </body>

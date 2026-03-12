@@ -15,31 +15,17 @@
     </head>
     <body class="about-theme">
         <div class="container">
-            <header class="header">
-                <div class="logo">
-                    <a href="/metergames">
-                        <img src="images/logo.png" alt="Meter Games Logo" />
-                    </a>
-                </div>
-                <nav>
-                    <a href="/metergames" class="nav-link">Home</a>
-                    <a href="parker" class="nav-link">Parker</a>
-                    <a href="slicestack" class="nav-link">Slice Stack</a>
-                    <a href="studysnap" class="nav-link">StudySnap</a>
-                    <a href="pitwall" class="nav-link">Pit Wall</a>
-                    <a href="about" class="nav-link" style="color: var(--about-accent);">About</a>
-                </nav>
-            </header>
+            <site-header page="about"></site-header>
 
             <section class="hero">
                 <h1>Ryan Morov</h1>
                 <p>Software Engineer & Game Developer based in Quebec.</p>
                 
                 <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
-                    <a href="https://www.linkedin.com/in/ryan-morov" target="_blank" class="btn">
+                    <a href="https://www.linkedin.com/in/ryan-morov" target="_blank" rel="noreferrer" class="btn">
                         Connect on LinkedIn
                     </a>
-                    <a href="https://github.com/metergames" target="_blank" class="btn">
+                    <a href="https://github.com/metergames" target="_blank" rel="noreferrer" class="btn">
                         GitHub Profile
                     </a>
                     <a href="ryan-morov-resume.pdf" download="Ryan_Morov_Resume.pdf" class="btn">
@@ -58,7 +44,7 @@
                 <div class="card" style="border-color: var(--about-accent);">
                     <h3 style="color: var(--about-accent)">Latest Update</h3>
                     <p>I shared the refactor story of Pit Wall, an F1 data dashboard I originally built for school, now completely rewritten from scratch using React, TypeScript, and Vite.</p>
-                    <a href="https://www.linkedin.com/posts/ryan-morov_%F0%9D%97%AA%F0%9D%97%B5%F0%9D%98%86-%F0%9D%97%9C-%F0%9D%97%B0%F0%9D%97%BC%F0%9D%97%BA%F0%9D%97%BD%F0%9D%97%B9%F0%9D%97%B2%F0%9D%98%81%F0%9D%97%B2%F0%9D%97%B9%F0%9D%98%86-%F0%9D%97%BF%F0%9D%97%B2%F0%9D%98%84%F0%9D%97%BF%F0%9D%97%BC-activity-7437358936749510656-wybW" target="_blank" style="color: var(--about-accent); font-weight: bold; text-decoration: underline;">Read the full breakdown on LinkedIn</a>
+                    <a href="https://www.linkedin.com/posts/ryan-morov_%F0%9D%97%AA%F0%9D%97%B5%F0%9D%98%86-%F0%9D%97%9C-%F0%9D%97%B0%F0%9D%97%BC%F0%9D%97%BA%F0%9D%97%BD%F0%9D%97%B9%F0%9D%97%B2%F0%9D%98%81%F0%9D%97%B2%F0%9D%97%B9%F0%9D%98%86-%F0%9D%97%BF%F0%9D%97%B2%F0%9D%98%84%F0%9D%97%BF%F0%9D%97%BC-activity-7437358936749510656-wybW" target="_blank" rel="noreferrer" style="color: var(--about-accent); font-weight: bold; text-decoration: underline;">Read the full breakdown on LinkedIn</a>
                 </div>
             </div>
 
@@ -95,10 +81,7 @@
                 </div>
             </section>
 
-            <footer>
-                <p>&copy; 2026 Meter Games. All rights reserved.</p>
-                <p><a href="privacy">Privacy Policy</a></p>
-            </footer>
+            <site-footer></site-footer>
         </div>
         <script src="script.js"></script>
     </body>
