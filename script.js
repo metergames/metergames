@@ -17,7 +17,7 @@ class SiteHeader extends HTMLElement {
             <header class="header">
                 <div class="logo">
                     <a href="${SITE_HOME_PATH}">
-                        <img src="images/logo.png" alt="Meter Games Logo" />
+                        <img src="images/logo.webp" alt="Meter Games Logo" />
                     </a>
                 </div>
                 <nav>
@@ -138,7 +138,7 @@ function updateLogo(theme) {
         // We are on Index or Privacy page
         const logoImg = document.querySelector(".logo img");
         if (logoImg) {
-            logoImg.src = "images/logo.png";
+            logoImg.src = "images/logo.webp";
         }
     }
 }
@@ -150,7 +150,7 @@ function initBanner() {
     const container = document.getElementById("banner-container");
     if (!container) return;
 
-    const banners = ["images/parker-banner.jpg", "images/parker-banner-2.jpg"];
+    const banners = ["images/parker-banner.webp", "images/parker-banner-2.webp"];
 
     const chosen = banners[Math.floor(Math.random() * banners.length)];
     const img = new Image();
