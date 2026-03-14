@@ -138,11 +138,7 @@ function updateLogo(theme) {
         // We are on Index or Privacy page
         const logoImg = document.querySelector(".logo img");
         if (logoImg) {
-            if (theme === "light") {
-                logoImg.src = "images/logo-dark.png";
-            } else {
-                logoImg.src = "images/logo.png";
-            }
+            logoImg.src = "images/logo.png";
         }
     }
 }

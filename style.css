@@ -34,6 +34,11 @@
     --scrollbar-thumb-hover: rgba(0, 0, 0, 0.3);
 }
 
+/* Light logo appearing black on light theme (home/privacy pages) */
+[data-theme="light"] .logo img {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(9%) saturate(93%) hue-rotate(337deg) brightness(102%) contrast(83%);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
