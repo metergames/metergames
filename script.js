@@ -6,7 +6,7 @@ const SITE_NAV_ITEMS = [
     { page: "slicestack", label: "Slice Stack", href: "slicestack" },
     { page: "studysnap", label: "StudySnap", href: "studysnap" },
     { page: "pitwall", label: "Pit Wall", href: "pitwall" },
-    { page: "about", label: "About", href: "about" }
+    { page: "about", label: "About", href: "about" },
 ];
 
 class SiteHeader extends HTMLElement {
@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initLightbox();
     initTheme();
     initKonami();
+    initAboutNudge();
 
     if (HAS_FINE_POINTER) {
         initSpotlight();
@@ -71,7 +72,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-console.log("%cTry typing the Konami code on the keyboard for a surprise...", "color: #14b8a6; font-size: 14px; font-weight: bold;");
+console.log(
+    "%cTry typing the Konami code on the keyboard for a surprise...",
+    "color: #14b8a6; font-size: 14px; font-weight: bold;",
+);
 
 /**
  * Initializes the Theme Toggle (Dark/Light).
@@ -80,7 +84,7 @@ console.log("%cTry typing the Konami code on the keyboard for a surprise...", "c
 function initTheme() {
     // 1. Get current theme (already set by the Head script)
     const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
-    
+
     // 2. Ensure the logo matches the theme immediately
     updateLogo(currentTheme);
 
@@ -100,7 +104,7 @@ function initTheme() {
     btn.addEventListener("click", () => {
         const current = document.documentElement.getAttribute("data-theme");
         const next = current === "dark" ? "light" : "dark";
-        
+
         document.documentElement.setAttribute("data-theme", next);
         localStorage.setItem("theme", next);
         updateLogo(next);
@@ -123,11 +127,12 @@ function getThemeIcon(theme) {
 // Game pages use CSS filters on the white logo, so we don't swap those.
 function updateLogo(theme) {
     // Check if we are on a game page by looking for the theme class
-    const isGamePage = document.body.classList.contains("parker-theme") || 
-                       document.body.classList.contains("slice-theme") ||
-                       document.body.classList.contains("study-theme") ||
-                       document.body.classList.contains("pit-theme") ||
-                       document.body.classList.contains("about-theme");
+    const isGamePage =
+        document.body.classList.contains("parker-theme") ||
+        document.body.classList.contains("slice-theme") ||
+        document.body.classList.contains("study-theme") ||
+        document.body.classList.contains("pit-theme") ||
+        document.body.classList.contains("about-theme");
 
     if (!isGamePage) {
         // We are on Index or Privacy page
@@ -149,20 +154,17 @@ function initBanner() {
     const container = document.getElementById("banner-container");
     if (!container) return;
 
-    const banners = [
-        "images/parker-banner.jpg",
-        "images/parker-banner-2.jpg"
-    ];
+    const banners = ["images/parker-banner.jpg", "images/parker-banner-2.jpg"];
 
     const chosen = banners[Math.floor(Math.random() * banners.length)];
     const img = new Image();
-    
+
     img.src = chosen;
     img.alt = "Parker Gameplay";
     img.className = "game-banner-animated";
 
     img.onload = () => container.classList.add("loaded");
-    
+
     container.appendChild(img);
 }
 
@@ -198,38 +200,38 @@ function openLightbox(originalImg) {
  * Tracks mouse movement to move the glowing gradient and physically tilt the card.
  */
 function initSpotlight() {
-    const cards = document.querySelectorAll('.card');
-    
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transition = 'border-color 0.3s ease'; 
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach((card) => {
+        card.addEventListener("mouseenter", () => {
+            card.style.transition = "border-color 0.3s ease";
         });
 
-        card.addEventListener('mousemove', (e) => {
+        card.addEventListener("mousemove", (e) => {
             const rect = card.getBoundingClientRect();
-            
+
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             // Update Spotlight Variables
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-            
+            card.style.setProperty("--mouse-x", `${x}px`);
+            card.style.setProperty("--mouse-y", `${y}px`);
+
             // Calculate 3D Tilt Math
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
+
             // Max degrees of tilt
             const rotateX = ((y - centerY) / centerY) * -2;
             const rotateY = ((x - centerX) / centerX) * 2;
-            
+
             // Apply the 3D rotation
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1, 1, 1)`;
         });
 
         // When mouse leaves, put the slow transition back and reset the card to flat
-        card.addEventListener('mouseleave', () => {
-            card.style.transition = 'transform 0.5s ease, border-color 0.3s ease';
+        card.addEventListener("mouseleave", () => {
+            card.style.transition = "transform 0.5s ease, border-color 0.3s ease";
             card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
         });
     });
@@ -242,21 +244,26 @@ function initSpotlight() {
 function initKonami() {
     // The keycodes for the Konami sequence
     const konamiSequence = [
-        "ArrowUp", "ArrowUp", 
-        "ArrowDown", "ArrowDown", 
-        "ArrowLeft", "ArrowRight", 
-        "ArrowLeft", "ArrowRight", 
-        "b", "a"
+        "ArrowUp",
+        "ArrowUp",
+        "ArrowDown",
+        "ArrowDown",
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowLeft",
+        "ArrowRight",
+        "b",
+        "a",
     ];
     let position = 0;
 
     document.addEventListener("keydown", (e) => {
-        const key = e.key.toLowerCase() === 'b' || e.key.toLowerCase() === 'a' ? e.key.toLowerCase() : e.key;
-        
+        const key = e.key.toLowerCase() === "b" || e.key.toLowerCase() === "a" ? e.key.toLowerCase() : e.key;
+
         // If the key matches the current position in the sequence
         if (key === konamiSequence[position]) {
             position++;
-            
+
             // If the whole sequence is completed
             if (position === konamiSequence.length) {
                 triggerEasterEgg();
@@ -274,7 +281,7 @@ function initKonami() {
 function triggerEasterEgg() {
     // Do a barrel roll
     document.body.classList.add("barrel-roll");
-    
+
     // Remove the class after animation finishes so it can be triggered again
     setTimeout(() => {
         document.body.classList.remove("barrel-roll");
@@ -299,7 +306,7 @@ function showAchievement(title, message) {
             <p>${message}</p>
         </div>
     `;
-    
+
     document.body.appendChild(toast);
 
     // Trigger the slide-up animation
@@ -314,30 +321,68 @@ function showAchievement(title, message) {
 }
 
 /**
+ * Home-page CTA nudge.
+ * Shows a delayed, non-blocking prompt that links to the About page.
+ */
+function initAboutNudge() {
+    const header = document.querySelector("site-header");
+    const isHomePage = header?.getAttribute("page") === "home";
+    const isSmallOrTouch = window.matchMedia("(max-width: 768px), (pointer: coarse)").matches;
+
+    if (!isHomePage || isSmallOrTouch) return;
+
+    const nudge = document.createElement("div");
+    nudge.className = "about-nudge";
+    nudge.setAttribute("aria-label", "Learn more about Ryan");
+    nudge.innerHTML = `
+        <div class="about-nudge-copy">
+            <span class="about-nudge-kicker">Curious who built this?</span>
+            <a href="about" class="about-nudge-link">check here</a>
+        </div>
+        <button type="button" class="about-nudge-close" aria-label="Dismiss message" title="Dismiss">x</button>
+    `;
+
+    document.body.appendChild(nudge);
+
+    const closeBtn = nudge.querySelector(".about-nudge-close");
+    closeBtn?.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        nudge.classList.add("closing");
+        setTimeout(() => nudge.remove(), 300);
+    });
+
+    // Delay the reveal so it is not an interruption.
+    window.setTimeout(() => {
+        nudge.classList.add("show");
+    }, 5500);
+}
+
+/**
  * MAGNETIC BUTTONS
  * Buttons subtly pull towards the mouse cursor on hover.
  */
 function initMagneticButtons() {
-    const buttons = document.querySelectorAll('.btn');
-    
-    buttons.forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
+    const buttons = document.querySelectorAll(".btn");
+
+    buttons.forEach((btn) => {
+        btn.addEventListener("mousemove", (e) => {
             const rect = btn.getBoundingClientRect();
             // Calculate distance from the center of the button
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
-            
+
             // Prevent sub-pixel rendering (which causes blur)
             const moveX = Math.round(x * 0.08);
             const moveY = Math.round(y * 0.12);
-            
+
             // Apply the movement with a Z-axis lock to keep text crisp
             btn.style.transform = `translate(${moveX}px, ${moveY}px) translateZ(0)`;
         });
 
-        btn.addEventListener('mouseleave', () => {
+        btn.addEventListener("mouseleave", () => {
             // Snap back to default CSS rules when mouse leaves
-            btn.style.transform = ''; 
+            btn.style.transform = "";
         });
     });
 }
@@ -348,28 +393,28 @@ function initMagneticButtons() {
  */
 function initPageTransitions() {
     // Stagger the Hero Section
-    const heroElements = document.querySelectorAll('.hero h1, .hero p, .hero div, .hero .btn, .hero .screenshot-row');
+    const heroElements = document.querySelectorAll(".hero h1, .hero p, .hero div, .hero .btn, .hero .screenshot-row");
     heroElements.forEach((el, index) => {
-        el.style.opacity = '0'; 
+        el.style.opacity = "0";
         el.style.animation = `fadeUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) ${index * 0.1}s forwards`;
-        
+
         // Once the animation finishes, unlock the transform property so hover effects work
-        el.addEventListener('animationend', () => {
-            el.style.opacity = '1';      // Lock opacity to visible
-            el.style.animation = 'none'; // Delete the animation lock
+        el.addEventListener("animationend", () => {
+            el.style.opacity = "1"; // Lock opacity to visible
+            el.style.animation = "none"; // Delete the animation lock
         });
     });
 
     // Stagger the Grid Cards
-    const cards = document.querySelectorAll('.card');
+    const cards = document.querySelectorAll(".card");
     cards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.animation = `fadeUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) ${0.3 + (index * 0.1)}s forwards`;
-        
+        card.style.opacity = "0";
+        card.style.animation = `fadeUp 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) ${0.3 + index * 0.1}s forwards`;
+
         // Unlock the cards so the 3D tilt can take over
-        card.addEventListener('animationend', () => {
-            card.style.opacity = '1';
-            card.style.animation = 'none';
+        card.addEventListener("animationend", () => {
+            card.style.opacity = "1";
+            card.style.animation = "none";
         });
     });
 }
