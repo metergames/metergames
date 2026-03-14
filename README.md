@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/metergames/metergames/refs/heads/main/images/profile-banner.png" alt="Profile Banner" width="100%" />
+  <img src="https://raw.githubusercontent.com/metergames/metergames/refs/heads/main/images/profile-banner.webp" alt="Profile Banner" width="100%" />
 </div>
 
 <div align="center">
