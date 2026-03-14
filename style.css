@@ -321,6 +321,152 @@ footer a:hover { color: var(--accent); text-decoration: underline; }
 }
 .banner-placeholder.loaded .game-banner-animated { opacity: 1; transform: scale(1); }
 
+/* ========================================= */
+/* RESPONSIVE LAYOUT                          */
+/* ========================================= */
+
+@media (max-width: 900px) {
+    .container { padding: 18px; }
+
+    .header {
+        flex-direction: column;
+        gap: 14px;
+        padding: 26px 0 18px;
+    }
+
+    .header nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .nav-link {
+        margin-left: 0;
+        padding: 7px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--border-color);
+        background: var(--card-bg);
+        font-size: 0.85rem;
+        line-height: 1;
+    }
+
+    .theme-toggle {
+        margin-left: 0;
+        border-radius: 999px;
+        border: 1px solid var(--border-color);
+        padding: 7px;
+    }
+
+    .hero h1 { font-size: clamp(2rem, 7vw, 2.6rem); }
+    .hero p { font-size: 1.06rem; }
+    .grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .banner-placeholder { height: 280px; }
+}
+
+@media (max-width: 768px) {
+    .container { padding: 14px; }
+
+    .logo img { max-height: 62px; }
+
+    .hero {
+        padding: 36px 10px;
+    }
+
+    .hero h1 {
+        margin-bottom: 14px;
+        line-height: 1.08;
+    }
+
+    .hero p {
+        font-size: 1rem;
+        margin-bottom: 22px;
+    }
+
+    .btn {
+        width: min(100%, 320px);
+        text-align: center;
+        padding: 12px 18px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 24px;
+    }
+
+    .card { padding: 22px; }
+    .card h3 { font-size: 1.25rem; }
+
+    .feature-list li {
+        margin-bottom: 8px;
+        padding-left: 16px;
+        font-size: 0.97rem;
+    }
+
+    .screenshot-row {
+        gap: 12px;
+        margin: 26px 0;
+    }
+
+    .mobile-screenshot { width: min(46%, 180px); }
+
+    .banner-placeholder,
+    .game-banner {
+        height: 220px;
+    }
+
+    .changelog-section { margin-top: 42px; }
+
+    .changelog-box {
+        padding: 20px;
+        max-height: 320px;
+    }
+
+    .version-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .achievement-toast {
+        width: calc(100vw - 24px);
+        border-radius: 12px;
+        padding: 12px 14px;
+    }
+
+    .achievement-toast.show { bottom: 16px; }
+
+    .lightbox-clone { padding: 12px; }
+}
+
+@media (max-width: 420px) {
+    .hero h1 { font-size: 1.75rem; }
+    .hero p { font-size: 0.95rem; }
+    .nav-link { font-size: 0.8rem; }
+    .card { padding: 18px; }
+    .skill-badge { font-size: 0.82rem; padding: 6px 10px; }
+}
+
+/* Disable hover/3D-only visuals on touch devices. */
+@media (hover: none), (pointer: coarse) {
+    .card:hover {
+        transform: none;
+        border-color: var(--border-color);
+    }
+
+    .card:hover::before { opacity: 0; }
+    .card:hover > * { transform: translateZ(0); }
+
+    .btn:hover {
+        transform: none;
+        background-position: 100% 0 !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-screenshot:hover { transform: none; }
+}
+
 
 /* ========================================= */
 /* THEME OVERRIDES SYSTEM                    */
