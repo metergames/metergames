@@ -5,14 +5,14 @@
     --card-bg: #1b1e26;
     --text-main: #e0e0e0;
     --text-muted: #9ba1b0;
-    --border-color: rgba(255, 255, 255, 0.05); /* Subtle white border */
+    --border-color: rgba(255, 255, 255, 0.05);
     
     --accent: #3b82f6;      /* Blue (Default) */
-    --parker-accent: #f59e0b; /* Amber */
+    --parker-accent: #c53677; /* Fiery Fuchsia */
     --slice-accent: #8b5cf6;  /* Purple */
     --study-accent: #2563eb; /* Royal Blue */
-    --about-accent: #14b8a6; /* Teal */
     --pit-accent: #dc2626;   /* Racing Red */
+    --about-accent: #14b8a6; /* Teal */
     
     --changelog-bg: rgba(0, 0, 0, 0.2);
     --scrollbar-track: rgba(0, 0, 0, 0.1);
@@ -472,21 +472,21 @@ footer a:hover { color: var(--accent); text-decoration: underline; }
 /* THEME OVERRIDES SYSTEM                    */
 /* ========================================= */
 
-/* 1. Parker Theme (Amber) */
+/* Parker Theme (Fiery Fuchsia) */
 .parker-theme .logo { color: var(--parker-accent); }
-.parker-theme .btn { background-color: var(--parker-accent); color: #000; }
+.parker-theme .btn { background-color: var(--parker-accent); }
 .parker-theme li::before { color: var(--parker-accent); }
 .parker-theme .nav-link:hover { color: var(--parker-accent); }
 .parker-theme .nav-link.active { color: var(--parker-accent); }
 .parker-theme .theme-toggle:hover { color: var(--parker-accent); }
 .parker-theme .card:hover { border-color: var(--parker-accent); }
 .parker-theme footer a:hover { color: var(--parker-accent); }
-/* Filter: White -> Amber */
+/* Filter: White -> Fiery Fuchsia */
 .parker-theme .logo img {
-    filter: brightness(0) saturate(100%) invert(78%) sepia(68%) saturate(3400%) hue-rotate(359deg) brightness(101%) contrast(106%);
+    filter: brightness(0) saturate(100%) invert(30%) sepia(45%) saturate(3355%) hue-rotate(310deg) brightness(83%) contrast(83%);
 }
 
-/* 2. Slice Theme (Purple) */
+/* Slice Theme (Purple) */
 .slice-theme .logo { color: var(--slice-accent); }
 .slice-theme .btn { background-color: var(--slice-accent); }
 .slice-theme li::before { color: var(--slice-accent); }
@@ -497,10 +497,10 @@ footer a:hover { color: var(--accent); text-decoration: underline; }
 .slice-theme footer a:hover { color: var(--slice-accent); }
 /* Filter: White -> Purple */
 .slice-theme .logo img {
-    filter: brightness(0) saturate(100%) invert(53%) sepia(91%) saturate(3000%) hue-rotate(227deg) brightness(97%) contrast(94%);
+    filter: brightness(0) saturate(100%) invert(39%) sepia(41%) saturate(3648%) hue-rotate(237deg) brightness(98%) contrast(97%);
 }
 
-/* 3. StudySnap Theme (Royal Blue) */
+/* StudySnap Theme (Royal Blue) */
 .study-theme .logo { color: var(--study-accent); }
 .study-theme .btn { background-color: var(--study-accent); }
 .study-theme li::before { color: var(--study-accent); }
@@ -511,26 +511,40 @@ footer a:hover { color: var(--accent); text-decoration: underline; }
 .study-theme footer a:hover { color: var(--study-accent); }
 /* Filter: White -> Royal Blue */
 .study-theme .logo img {
-    filter: brightness(0) saturate(100%) invert(28%) sepia(98%) saturate(2374%) hue-rotate(209deg) brightness(93%) contrast(93%);
+    filter: brightness(0) saturate(100%) invert(25%) sepia(99%) saturate(2051%) hue-rotate(216deg) brightness(96%) contrast(91%);
 }
 
-/* 4. About Theme (Teal) */
+/* About Theme (Teal) */
 .about-theme .logo { color: var(--about-accent); }
 .about-theme .btn { background-color: var(--about-accent); }
 .about-theme .nav-link:hover { color: var(--about-accent); }
 .about-theme .nav-link.active { color: var(--about-accent); }
 .about-theme .theme-toggle:hover { color: var(--about-accent); }
-.about-theme .card:hover { border-color: var(--about-accent); }  /* <--- Fixes Card Hover */
-.about-theme footer a:hover { color: var(--about-accent); }      /* <--- Fixes Footer Hover */
+.about-theme .card:hover { border-color: var(--about-accent); }
+.about-theme footer a:hover { color: var(--about-accent); }
 /* Filter: White -> Teal */
 .about-theme .logo img {
-    filter: brightness(0) saturate(100%) invert(65%) sepia(60%) saturate(450%) hue-rotate(125deg) brightness(88%) contrast(88%);
+    filter: brightness(0) saturate(100%) invert(55%) sepia(80%) saturate(464%) hue-rotate(124deg) brightness(92%) contrast(87%);
+}
+
+/* Pit Wall Theme (Racing Red) */
+.pit-theme .logo { color: var(--pit-accent); }
+.pit-theme .btn { background-color: var(--pit-accent); }
+.pit-theme li::before { color: var(--pit-accent); }
+.pit-theme .nav-link:hover { color: var(--pit-accent); }
+.pit-theme .nav-link.active { color: var(--pit-accent); }
+.pit-theme .theme-toggle:hover { color: var(--pit-accent); }
+.pit-theme .card:hover { border-color: var(--pit-accent); }
+.pit-theme footer a:hover { color: var(--pit-accent); }
+/* Filter: White -> Racing Red */
+.pit-theme .logo img {
+    filter: brightness(0) saturate(100%) invert(30%) sepia(64%) saturate(2273%) hue-rotate(338deg) brightness(82%) contrast(114%);
 }
 
 /* --- Spotlight Card Effect --- */
 .card {
     position: relative;
-    overflow: hidden; /* Keeps the glow inside the card borders */
+    overflow: hidden;
     transform-style: preserve-3d;
     will-change: transform;
 }
@@ -638,18 +652,4 @@ footer a:hover { color: var(--accent); text-decoration: underline; }
         opacity: 1; 
         transform: translateY(0); 
     }
-}
-
-/* Pit Wall Theme (Racing Red) */
-.pit-theme .logo { color: var(--pit-accent); }
-.pit-theme .btn { background-color: var(--pit-accent); }
-.pit-theme li::before { color: var(--pit-accent); }
-.pit-theme .nav-link:hover { color: var(--pit-accent); }
-.pit-theme .nav-link.active { color: var(--pit-accent); }
-.pit-theme .theme-toggle:hover { color: var(--pit-accent); }
-.pit-theme .card:hover { border-color: var(--pit-accent); }
-.pit-theme footer a:hover { color: var(--pit-accent); }
-/* Filter Logic: Expects WHITE logo input to create Red result */
-.pit-theme .logo img {
-    filter: brightness(0) saturate(100%) invert(27%) sepia(85%) saturate(3011%) hue-rotate(346deg) brightness(96%) contrast(93%);
 }
