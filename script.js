@@ -52,14 +52,23 @@ function renderNavLink(item, activePage) {
 customElements.define("site-header", SiteHeader);
 customElements.define("site-footer", SiteFooter);
 
+const HAS_FINE_POINTER = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+const PREFERS_REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 document.addEventListener("DOMContentLoaded", () => {
     initBanner();
     initLightbox();
     initTheme();
-    initSpotlight();
     initKonami();
-    initMagneticButtons();
-    initPageTransitions();
+
+    if (HAS_FINE_POINTER) {
+        initSpotlight();
+        initMagneticButtons();
+    }
+
+    if (!PREFERS_REDUCED_MOTION) {
+        initPageTransitions();
+    }
 });
 
 console.log("%cTry typing the Konami code on the keyboard for a surprise...", "color: #14b8a6; font-size: 14px; font-weight: bold;");
