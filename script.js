@@ -9,6 +9,15 @@ const SITE_NAV_ITEMS = [
     { page: "about", label: "About", href: "about" },
 ];
 
+const OSS_CONTRIB_CONFIG = {
+    githubUsername: "metergames",
+    repositories: [
+        // Format: "owner/repo"
+        "petertzy/markdown-reader"
+    ],
+    maxEntriesPerRepo: 4,
+};
+
 class SiteHeader extends HTMLElement {
     connectedCallback() {
         const activePage = this.getAttribute("page") || "home";
@@ -61,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initTheme();
     initKonami();
     initAboutNudge();
+    initOpenSourceContributions();
 
     if (HAS_FINE_POINTER) {
         initSpotlight();
@@ -71,6 +81,209 @@ document.addEventListener("DOMContentLoaded", () => {
         initPageTransitions();
     }
 });
+
+function initOpenSourceContributions() {
+    const container = document.getElementById("oss-contrib-list");
+    if (!container) return;
+
+    const repos = OSS_CONTRIB_CONFIG.repositories;
+    if (!Array.isArray(repos) || repos.length === 0) {
+        container.innerHTML = `
+            <div class="card open-source-card">
+                <h3>No repositories configured yet</h3>
+                <p>
+                    Add repositories in the OSS_CONTRIB_CONFIG block inside script.js using the format owner/repo.
+                </p>
+            </div>
+        `;
+        return;
+    }
+
+    fetchAndRenderContributions(container).catch((err) => {
+        console.error("Could not load open source contributions:", err);
+        container.innerHTML = `
+            <div class="card open-source-card">
+                <h3>Contributions unavailable</h3>
+                <p>
+                    GitHub data could not be loaded right now. Please try again later.
+                </p>
+            </div>
+        `;
+    });
+}
+
+async function fetchAndRenderContributions(container) {
+    const { repositories, githubUsername, maxEntriesPerRepo } = OSS_CONTRIB_CONFIG;
+
+    const repoResults = await Promise.all(
+        repositories.map(async (repoName) => {
+            const pulls = await fetchMergedPullRequestsForRepo(repoName, githubUsername);
+            const metadata = await fetchRepositoryMetadata(repoName);
+            return {
+                repoName,
+                pulls,
+                metadata,
+            };
+        }),
+    );
+
+    const reposWithContribs = repoResults.filter((repo) => repo.pulls.length > 0);
+
+    if (reposWithContribs.length === 0) {
+        container.innerHTML = `
+            <div class="card open-source-card">
+                <h3>No merged PRs found</h3>
+                <p>
+                    No merged pull requests were found for the configured repositories and username.
+                </p>
+            </div>
+        `;
+        return;
+    }
+
+    reposWithContribs.sort((a, b) => {
+        const aLatest = new Date(a.pulls[0].merged_at).getTime();
+        const bLatest = new Date(b.pulls[0].merged_at).getTime();
+        return bLatest - aLatest;
+    });
+
+    container.innerHTML = reposWithContribs
+        .map((repo) => {
+            const items = repo.pulls.slice(0, maxEntriesPerRepo);
+
+            const itemMarkup = items
+                .map((pr) => {
+                    const mergedDate = formatDate(pr.merged_at);
+                    return `
+                        <div class="open-source-pr-item">
+                            <a href="${pr.html_url}" target="_blank" rel="noreferrer">${escapeHtml(pr.title)}</a>
+                            <div class="open-source-pr-meta">#${pr.number} merged on ${mergedDate}</div>
+                        </div>
+                    `;
+                })
+                .join("");
+
+            const { description, stars, languages } = repo.metadata;
+            const safeDescription = description ? escapeHtml(description) : "No repository description provided.";
+            const languageMarkup =
+                languages.length > 0
+                    ? languages.map((lang) => `<span class="skill-badge">${escapeHtml(lang)}</span>`).join("")
+                    : '<span class="skill-badge">Languages unavailable</span>';
+
+            return `
+                <div class="card open-source-card">
+                    <div class="open-source-repo">
+                        <div class="open-source-repo-title-group">
+                            <h3>${escapeHtml(repo.repoName)}</h3>
+                            <span class="open-source-stars-bubble" aria-label="${stars.toLocaleString()} stars">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 17.27L18.18 21 16.54 13.97 22 9.24 14.81 8.63 12 2 9.19 8.63 2 9.24 7.46 13.97 5.82 21z"></path></svg>
+                                ${stars.toLocaleString()}
+                            </span>
+                        </div>
+                        <span class="open-source-count">${repo.pulls.length} merged PR${repo.pulls.length === 1 ? "" : "s"}</span>
+                    </div>
+                    <p class="open-source-repo-desc">${safeDescription}</p>
+                    <div class="skill-container open-source-language-list">
+                        ${languageMarkup}
+                    </div>
+                    <div class="open-source-pr-list">
+                        ${itemMarkup}
+                    </div>
+                </div>
+            `;
+        })
+        .join("");
+
+    if (HAS_FINE_POINTER) {
+        initSpotlight(container);
+    }
+}
+
+async function fetchRepositoryMetadata(repoName) {
+    const repoEndpoint = `https://api.github.com/repos/${repoName}`;
+    const languageEndpoint = `https://api.github.com/repos/${repoName}/languages`;
+
+    const [repoResponse, languageResponse] = await Promise.all([fetch(repoEndpoint), fetch(languageEndpoint)]);
+
+    if (!repoResponse.ok) {
+        throw new Error(`GitHub repo metadata error for ${repoName}: ${repoResponse.status}`);
+    }
+
+    const repoData = await repoResponse.json();
+    const description = repoData?.description || "";
+    const stars = typeof repoData?.stargazers_count === "number" ? repoData.stargazers_count : 0;
+
+    let languages = [];
+    if (languageResponse.ok) {
+        const languageData = await languageResponse.json();
+        if (languageData && typeof languageData === "object") {
+            languages = Object.entries(languageData)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 4)
+                .map(([language]) => language);
+        }
+    }
+
+    if (languages.length === 0 && typeof repoData?.language === "string" && repoData.language.trim() !== "") {
+        languages = [repoData.language.trim()];
+    }
+
+    return {
+        description,
+        stars,
+        languages,
+    };
+}
+
+async function fetchMergedPullRequestsForRepo(repoName, username) {
+    const allPulls = [];
+    const pagesToCheck = 3;
+
+    for (let page = 1; page <= pagesToCheck; page++) {
+        const endpoint = `https://api.github.com/repos/${repoName}/pulls?state=closed&sort=updated&direction=desc&per_page=100&page=${page}`;
+        const response = await fetch(endpoint);
+
+        if (!response.ok) {
+            throw new Error(`GitHub API error for ${repoName}: ${response.status}`);
+        }
+
+        const pulls = await response.json();
+        if (!Array.isArray(pulls) || pulls.length === 0) {
+            break;
+        }
+
+        allPulls.push(...pulls);
+
+        if (pulls.length < 100) {
+            break;
+        }
+    }
+
+    return allPulls
+        .filter((pr) => pr?.user?.login?.toLowerCase() === username.toLowerCase() && Boolean(pr.merged_at))
+        .sort((a, b) => new Date(b.merged_at).getTime() - new Date(a.merged_at).getTime());
+}
+
+function formatDate(dateValue) {
+    if (!dateValue) return "unknown date";
+
+    return new Date(dateValue).toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+    });
+}
+
+function escapeHtml(value) {
+    if (typeof value !== "string") return "";
+
+    return value
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
 console.log(
     "%cTry typing the Konami code on the keyboard for a surprise...",
@@ -195,10 +408,19 @@ function openLightbox(originalImg) {
  * SPOTLIGHT & 3D TILT EFFECT
  * Tracks mouse movement to move the glowing gradient and physically tilt the card.
  */
-function initSpotlight() {
-    const cards = document.querySelectorAll(".card");
+function initSpotlight(scope = document) {
+    const cards = scope.querySelectorAll(".card");
 
     cards.forEach((card) => {
+        if (card.classList.contains("open-source-card")) {
+            return;
+        }
+
+        if (card.dataset.spotlightBound === "true") {
+            return;
+        }
+        card.dataset.spotlightBound = "true";
+
         card.addEventListener("mouseenter", () => {
             card.style.transition = "border-color 0.3s ease";
         });
@@ -217,9 +439,11 @@ function initSpotlight() {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
 
-            // Max degrees of tilt
-            const rotateX = ((y - centerY) / centerY) * -2;
-            const rotateY = ((x - centerX) / centerX) * 2;
+            // Scale tilt by card size so large panels feel less aggressive.
+            const dominantSize = Math.max(rect.width, rect.height);
+            const maxTilt = Math.min(2.2, Math.max(0.9, 900 / dominantSize));
+            const rotateX = ((y - centerY) / centerY) * -maxTilt;
+            const rotateY = ((x - centerX) / centerX) * maxTilt;
 
             // Apply the 3D rotation
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1, 1, 1)`;
