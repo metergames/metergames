@@ -412,10 +412,6 @@ function initSpotlight(scope = document) {
     const cards = scope.querySelectorAll(".card");
 
     cards.forEach((card) => {
-        if (card.classList.contains("open-source-card")) {
-            return;
-        }
-
         if (card.dataset.spotlightBound === "true") {
             return;
         }
@@ -430,10 +426,16 @@ function initSpotlight(scope = document) {
 
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
+            const isOpenSourceCard = card.classList.contains("open-source-card");
 
             // Update Spotlight Variables
             card.style.setProperty("--mouse-x", `${x}px`);
             card.style.setProperty("--mouse-y", `${y}px`);
+
+            // Keep open-source cards flat while still tracking glow position.
+            if (isOpenSourceCard) {
+                return;
+            }
 
             // Calculate 3D Tilt Math
             const centerX = rect.width / 2;
@@ -451,6 +453,10 @@ function initSpotlight(scope = document) {
 
         // When mouse leaves, put the slow transition back and reset the card to flat
         card.addEventListener("mouseleave", () => {
+            if (card.classList.contains("open-source-card")) {
+                return;
+            }
+
             card.style.transition = "transform 0.5s ease, border-color 0.3s ease";
             card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
         });
