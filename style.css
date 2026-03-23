@@ -1195,6 +1195,191 @@ footer a:hover {
     border-color: var(--text-muted);
 }
 
+/* --- Quick Navigator (Command Palette) --- */
+.quick-nav-launcher {
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
+    z-index: 9100;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    background: var(--card-bg);
+    color: var(--text-main);
+    padding: 8px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.quick-nav-launcher:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.34);
+}
+
+.quick-nav-launcher-label {
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.quick-nav-launcher-shortcut {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    padding: 2px 8px;
+}
+
+.quick-nav-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9300;
+    background: rgba(0, 0, 0, 0.48);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: min(14vh, 110px) 16px 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.quick-nav-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.quick-nav-panel {
+    width: min(680px, 100%);
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    box-shadow:
+        0 40px 70px rgba(0, 0, 0, 0.45),
+        0 0 30px rgba(59, 130, 246, 0.15);
+    overflow: hidden;
+    transform: translateY(8px) scale(0.985);
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.quick-nav-overlay.is-open .quick-nav-panel {
+    transform: translateY(0) scale(1);
+}
+
+.quick-nav-input-wrap {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.quick-nav-input {
+    width: 100%;
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.quick-nav-input:focus {
+    border-color: var(--accent);
+}
+
+.quick-nav-results {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+    max-height: min(48vh, 420px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+.quick-nav-results::-webkit-scrollbar {
+    width: 10px;
+}
+
+.quick-nav-results::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.quick-nav-results::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 999px;
+    border: 2px solid var(--card-bg);
+}
+
+.quick-nav-results::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+.quick-nav-item {
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.quick-nav-item:hover,
+.quick-nav-item.is-selected {
+    border-color: var(--accent);
+    background: rgba(59, 130, 246, 0.12);
+    transform: translateX(2px);
+}
+
+[data-theme="light"] .quick-nav-item:hover,
+[data-theme="light"] .quick-nav-item.is-selected {
+    background: rgba(59, 130, 246, 0.09);
+}
+
+.quick-nav-item-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.quick-nav-item-copy strong {
+    font-size: 0.96rem;
+    color: var(--text-main);
+}
+
+.quick-nav-item-copy span {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+}
+
+.quick-nav-empty {
+    color: var(--text-muted);
+    text-align: center;
+    padding: 14px;
+}
+
+.quick-nav-footer {
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    padding: 10px 14px;
+}
+
 /* Soften the glow in Light Mode */
 [data-theme="light"] .achievement-toast {
     box-shadow:
@@ -1205,6 +1390,21 @@ footer a:hover {
 @media (max-width: 768px), (hover: none), (pointer: coarse) {
     .about-nudge {
         display: none;
+    }
+
+    .quick-nav-launcher {
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        justify-content: space-between;
+    }
+
+    .quick-nav-panel {
+        border-radius: 12px;
+    }
+
+    .quick-nav-results {
+        max-height: 54vh;
     }
 }
 
