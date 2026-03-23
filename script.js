@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initBanner();
     initLightbox();
     initTheme();
+    initQuickNavigator();
     initKonami();
     initAboutNudge();
     initOpenSourceContributions();
@@ -315,14 +316,25 @@ function initTheme() {
 
     // 5. Handle Click
     btn.addEventListener("click", () => {
-        const current = document.documentElement.getAttribute("data-theme");
-        const next = current === "dark" ? "light" : "dark";
-
-        document.documentElement.setAttribute("data-theme", next);
-        localStorage.setItem("theme", next);
-        updateLogo(next);
-        btn.innerHTML = getThemeIcon(next);
+        toggleTheme();
     });
+}
+
+function setTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+    updateLogo(theme);
+
+    const themeToggle = document.querySelector(".theme-toggle");
+    if (themeToggle) {
+        themeToggle.innerHTML = getThemeIcon(theme);
+    }
+}
+
+function toggleTheme() {
+    const current = document.documentElement.getAttribute("data-theme") || "dark";
+    const next = current === "dark" ? "light" : "dark";
+    setTheme(next);
 }
 
 // Returns the Sun icon (for Dark mode) or Moon icon (for Light mode)
@@ -402,6 +414,230 @@ function openLightbox(originalImg) {
     };
 
     document.body.appendChild(clone);
+}
+
+function getQuickNavigatorActions() {
+    const pageActions = SITE_NAV_ITEMS.map((item) => ({
+        id: `page-${item.page}`,
+        label: `Go to ${item.label}`,
+        description: "Navigate to page",
+        keywords: `${item.label} ${item.page} page navigate`,
+        run: () => {
+            window.location.href = item.href;
+        },
+    }));
+
+    return [
+        ...pageActions,
+        {
+            id: "privacy",
+            label: "Open Privacy Policy",
+            description: "View privacy details",
+            keywords: "privacy policy legal",
+            run: () => {
+                window.location.href = "privacy";
+            },
+        },
+        {
+            id: "theme",
+            label: "Toggle Theme",
+            description: "Switch dark/light mode",
+            keywords: "theme dark light mode",
+            run: () => {
+                toggleTheme();
+            },
+        },
+        {
+            id: "surprise",
+            label: "Random Project",
+            description: "Jump to a random featured project",
+            keywords: "random surprise project game",
+            run: () => {
+                const routes = ["parker", "slicestack", "studysnap", "pitwall"];
+                const target = routes[Math.floor(Math.random() * routes.length)];
+                window.location.href = target;
+            },
+        },
+    ];
+}
+
+function initQuickNavigator() {
+    if (document.querySelector(".quick-nav-overlay")) return;
+
+    const actions = getQuickNavigatorActions();
+    const launcher = document.createElement("button");
+    launcher.type = "button";
+    launcher.className = "quick-nav-launcher";
+    launcher.setAttribute("aria-label", "Open quick navigator");
+    launcher.innerHTML = `
+        <span class="quick-nav-launcher-label">Quick Nav</span>
+        <span class="quick-nav-launcher-shortcut">Ctrl+K</span>
+    `;
+
+    const overlay = document.createElement("div");
+    overlay.className = "quick-nav-overlay";
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.innerHTML = `
+        <div class="quick-nav-panel" role="dialog" aria-modal="true" aria-label="Quick navigator">
+            <div class="quick-nav-input-wrap">
+                <input type="text" class="quick-nav-input" placeholder="Type to jump somewhere..." autocomplete="off" />
+            </div>
+            <ul class="quick-nav-results" role="listbox"></ul>
+            <div class="quick-nav-footer">Use ↑ ↓ to move, Enter to launch, Esc to close.</div>
+        </div>
+    `;
+
+    document.body.appendChild(launcher);
+    document.body.appendChild(overlay);
+
+    const input = overlay.querySelector(".quick-nav-input");
+    const results = overlay.querySelector(".quick-nav-results");
+    let selectedIndex = 0;
+    let filteredActions = [...actions];
+
+    function renderResults() {
+        if (!results) return;
+
+        if (filteredActions.length === 0) {
+            results.innerHTML = '<li class="quick-nav-empty">No matching actions</li>';
+            return;
+        }
+
+        results.innerHTML = filteredActions
+            .map((action, index) => {
+                const isSelected = index === selectedIndex;
+                return `
+                    <li>
+                        <button type="button" class="quick-nav-item${isSelected ? " is-selected" : ""}" data-action-index="${index}" role="option" aria-selected="${isSelected}">
+                            <span class="quick-nav-item-copy">
+                                <strong>${escapeHtml(action.label)}</strong>
+                                <span>${escapeHtml(action.description)}</span>
+                            </span>
+                        </button>
+                    </li>
+                `;
+            })
+            .join("");
+
+        syncSelectedIntoView();
+    }
+
+    function syncSelectedIntoView() {
+        const selected = results.querySelector(`.quick-nav-item[data-action-index="${selectedIndex}"]`);
+        if (!selected) return;
+
+        selected.scrollIntoView({
+            block: "nearest",
+            inline: "nearest",
+        });
+    }
+
+    function closeNavigator() {
+        overlay.classList.remove("is-open");
+        overlay.setAttribute("aria-hidden", "true");
+        input.value = "";
+        filteredActions = [...actions];
+        selectedIndex = 0;
+        renderResults();
+    }
+
+    function openNavigator() {
+        overlay.classList.add("is-open");
+        overlay.setAttribute("aria-hidden", "false");
+        filteredActions = [...actions];
+        selectedIndex = 0;
+        renderResults();
+
+        window.requestAnimationFrame(() => {
+            input.focus();
+            input.select();
+        });
+    }
+
+    function executeSelectedAction() {
+        const action = filteredActions[selectedIndex];
+        if (!action) return;
+        closeNavigator();
+        action.run();
+    }
+
+    launcher.addEventListener("click", () => {
+        openNavigator();
+    });
+
+    overlay.addEventListener("click", (event) => {
+        if (event.target === overlay) {
+            closeNavigator();
+        }
+
+        const actionButton = event.target.closest(".quick-nav-item");
+        if (actionButton) {
+            const index = Number(actionButton.getAttribute("data-action-index"));
+            if (Number.isInteger(index)) {
+                selectedIndex = index;
+                executeSelectedAction();
+            }
+        }
+    });
+
+    input.addEventListener("input", () => {
+        const query = input.value.trim().toLowerCase();
+        filteredActions = actions.filter((action) => {
+            const haystack = `${action.label} ${action.description} ${action.keywords}`.toLowerCase();
+            return haystack.includes(query);
+        });
+
+        selectedIndex = 0;
+        renderResults();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        const isToggleShortcut = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k";
+
+        if (isToggleShortcut) {
+            event.preventDefault();
+            if (overlay.classList.contains("is-open")) {
+                closeNavigator();
+            } else {
+                openNavigator();
+            }
+            return;
+        }
+
+        if (!overlay.classList.contains("is-open")) {
+            return;
+        }
+
+        if (event.key === "Escape") {
+            event.preventDefault();
+            closeNavigator();
+            return;
+        }
+
+        if (event.key === "ArrowDown") {
+            event.preventDefault();
+            selectedIndex = filteredActions.length === 0 ? 0 : (selectedIndex + 1) % filteredActions.length;
+            renderResults();
+            return;
+        }
+
+        if (event.key === "ArrowUp") {
+            event.preventDefault();
+            selectedIndex =
+                filteredActions.length === 0
+                    ? 0
+                    : (selectedIndex - 1 + filteredActions.length) % filteredActions.length;
+            renderResults();
+            return;
+        }
+
+        if (event.key === "Enter") {
+            event.preventDefault();
+            executeSelectedAction();
+        }
+    });
+
+    renderResults();
 }
 
 /**
