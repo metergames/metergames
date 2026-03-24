@@ -167,6 +167,151 @@ ul {
     margin: 0 auto 30px;
 }
 
+/* Home Project Spotlight */
+.project-spotlight {
+    --spotlight-accent: var(--parker-accent);
+    position: relative;
+    margin: 8px auto 24px;
+    padding: 28px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    background:
+        radial-gradient(1200px circle at -10% -30%, color-mix(in srgb, var(--spotlight-accent) 20%, transparent), transparent 50%),
+        radial-gradient(900px circle at 120% 130%, color-mix(in srgb, var(--spotlight-accent) 16%, transparent), transparent 60%),
+        var(--card-bg);
+    overflow: hidden;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.28);
+}
+
+.project-spotlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(120deg, transparent 20%, color-mix(in srgb, var(--spotlight-accent) 14%, transparent) 45%, transparent 75%);
+    opacity: 0;
+    transform: translateX(-35%);
+}
+
+.project-spotlight.is-flashing::after {
+    animation: spotlightSweep 560ms ease;
+}
+
+.project-spotlight-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.project-spotlight-kicker {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.project-spotlight h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    line-height: 1.05;
+    color: var(--spotlight-accent);
+    transition: color 0.35s ease;
+}
+
+.project-spotlight-description {
+    margin: 0;
+    font-size: 1.05rem;
+    max-width: 720px;
+    color: var(--text-main);
+    transition: color 0.35s ease;
+}
+
+.project-spotlight-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.project-spotlight-tag {
+    border: 1px solid color-mix(in srgb, var(--spotlight-accent) 42%, var(--border-color));
+    color: color-mix(in srgb, var(--spotlight-accent) 82%, var(--text-main));
+    background: color-mix(in srgb, var(--spotlight-accent) 10%, transparent);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition:
+        border-color 0.35s ease,
+        color 0.35s ease,
+        background-color 0.35s ease;
+}
+
+.project-spotlight #spotlight-link {
+    background-color: var(--spotlight-accent);
+    box-shadow: 0 10px 22px color-mix(in srgb, var(--spotlight-accent) 42%, rgba(0, 0, 0, 0.45));
+    transition:
+        background-color 0.35s ease,
+        box-shadow 0.35s ease,
+        background-position 0.3s ease-out,
+        transform 0.2s ease,
+        color 0.25s ease;
+}
+
+.project-spotlight #spotlight-link:hover {
+    box-shadow: 0 14px 28px color-mix(in srgb, var(--spotlight-accent) 45%, rgba(0, 0, 0, 0.52));
+}
+
+.project-spotlight-actions {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.project-spotlight-indicators {
+    margin-top: 24px;
+    display: inline-flex;
+    gap: 10px;
+}
+
+.project-spotlight-indicator {
+    width: 24px;
+    height: 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    cursor: pointer;
+    transition:
+        width 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.project-spotlight-indicator.is-active {
+    width: 40px;
+    border-color: color-mix(in srgb, var(--spotlight-accent) 70%, var(--border-color));
+    background: color-mix(in srgb, var(--spotlight-accent) 65%, transparent);
+}
+
+.project-spotlight.is-flashing h2,
+.project-spotlight.is-flashing .project-spotlight-description,
+.project-spotlight.is-flashing .project-spotlight-tag,
+.project-spotlight.is-flashing #spotlight-link {
+    animation: spotlightContentPulse 0.56s ease;
+}
+
+[data-theme="light"] .project-spotlight {
+    box-shadow: 0 16px 34px rgba(17, 24, 39, 0.08);
+}
+
+[data-theme="light"] .project-spotlight-description {
+    color: var(--text-muted);
+}
+
 /* Buttons */
 .btn {
     display: inline-block;
@@ -706,6 +851,15 @@ footer a:hover {
     .hero p {
         font-size: 1.06rem;
     }
+
+    .project-spotlight {
+        padding: 24px;
+    }
+
+    .project-spotlight-description {
+        font-size: 0.98rem;
+    }
+
     .grid {
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 20px;
@@ -736,6 +890,25 @@ footer a:hover {
     .hero p {
         font-size: 1rem;
         margin-bottom: 22px;
+    }
+
+    .project-spotlight {
+        padding: 18px;
+        margin-bottom: 16px;
+    }
+
+    .project-spotlight-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .project-spotlight-actions .btn {
+        width: 100%;
+    }
+
+    .project-spotlight-indicators {
+        width: 100%;
+        justify-content: center;
     }
 
     .btn {
@@ -827,6 +1000,10 @@ footer a:hover {
     .skill-badge {
         font-size: 0.82rem;
         padding: 6px 10px;
+    }
+
+    .project-spotlight-kicker {
+        font-size: 0.68rem;
     }
 }
 
@@ -1416,5 +1593,32 @@ footer a:hover {
     100% {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes spotlightSweep {
+    0% {
+        opacity: 0;
+        transform: translateX(-35%);
+    }
+    25% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(35%);
+    }
+}
+
+@keyframes spotlightContentPulse {
+    0% {
+        transform: translateY(6px);
+        opacity: 0.6;
+        filter: saturate(82%);
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+        filter: saturate(100%);
     }
 }

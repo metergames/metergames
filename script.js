@@ -18,6 +18,41 @@ const OSS_CONTRIB_CONFIG = {
     maxEntriesPerRepo: 4,
 };
 
+const HOME_SPOTLIGHT_PROJECTS = [
+    {
+        id: "parker",
+        title: "Parker",
+        href: "parker",
+        description: "Precision parking with progression systems, custom level tooling, and rich vehicle behavior.",
+        accent: "var(--parker-accent)",
+        tags: ["Unity", "3D Physics", "Progression"],
+    },
+    {
+        id: "studysnap",
+        title: "StudySnap",
+        href: "studysnap",
+        description: "A local-first flashcard engine with AI-assisted deck creation and focused study sessions.",
+        accent: "var(--study-accent)",
+        tags: ["C#", "WPF", "AI Integration"],
+    },
+    {
+        id: "pitwall",
+        title: "Pit Wall",
+        href: "pitwall",
+        description: "A fast Formula 1 dashboard that turns raw API feeds into race-ready insights.",
+        accent: "var(--pit-accent)",
+        tags: ["React", "TypeScript", "Data Visualization"],
+    },
+    {
+        id: "slicestack",
+        title: "Slice Stack",
+        href: "slicestack",
+        description: "A premium stacking arcade loop built around calm pacing, polish, and satisfying feedback.",
+        accent: "var(--slice-accent)",
+        tags: ["Mobile", "Gameplay Loop", "UX Polish"],
+    },
+];
+
 class SiteHeader extends HTMLElement {
     connectedCallback() {
         const activePage = this.getAttribute("page") || "home";
@@ -71,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initQuickNavigator();
     initKonami();
     initAboutNudge();
+    initProjectSpotlight();
     initOpenSourceContributions();
 
     if (HAS_FINE_POINTER) {
@@ -82,6 +118,136 @@ document.addEventListener("DOMContentLoaded", () => {
         initPageTransitions();
     }
 });
+
+function initProjectSpotlight() {
+    const section = document.querySelector(".project-spotlight");
+    const titleEl = document.getElementById("spotlight-title");
+    const descriptionEl = document.getElementById("spotlight-description");
+    const tagsEl = document.getElementById("spotlight-tags");
+    const linkEl = document.getElementById("spotlight-link");
+    const indicatorWrap = document.getElementById("spotlight-indicators");
+
+    if (!section || !titleEl || !descriptionEl || !tagsEl || !linkEl || !indicatorWrap) {
+        return;
+    }
+
+    const projects = HOME_SPOTLIGHT_PROJECTS;
+    const storedIndex = Number.parseInt(localStorage.getItem("home-spotlight-index") || "0", 10);
+    let activeIndex = Number.isInteger(storedIndex) && storedIndex >= 0 && storedIndex < projects.length ? storedIndex : 0;
+    let rotationTimer = null;
+    let flashTimer = null;
+
+    function renderIndicators() {
+        indicatorWrap.innerHTML = projects
+            .map(
+                (project, index) =>
+                    `<button type="button" class="project-spotlight-indicator${index === activeIndex ? " is-active" : ""}" data-index="${index}" aria-label="Show ${escapeHtml(project.title)}"></button>`,
+            )
+            .join("");
+    }
+
+    function setIndicatorState() {
+        const buttons = indicatorWrap.querySelectorAll(".project-spotlight-indicator");
+        buttons.forEach((button, index) => {
+            button.classList.toggle("is-active", index === activeIndex);
+            button.setAttribute("aria-current", index === activeIndex ? "true" : "false");
+        });
+    }
+
+    function flashSpotlight() {
+        if (flashTimer) {
+            window.clearTimeout(flashTimer);
+        }
+
+        section.classList.remove("is-flashing");
+        // Force a reflow so the same animation can restart reliably on rapid tab changes.
+        void section.offsetWidth;
+        section.classList.add("is-flashing");
+
+        flashTimer = window.setTimeout(() => {
+            section.classList.remove("is-flashing");
+        }, 620);
+    }
+
+    function renderSpotlight() {
+        const project = projects[activeIndex];
+        if (!project) {
+            return;
+        }
+
+        titleEl.textContent = project.title;
+        descriptionEl.textContent = project.description;
+        linkEl.href = project.href;
+        linkEl.textContent = `Explore ${project.title}`;
+        section.style.setProperty("--spotlight-accent", project.accent);
+
+        tagsEl.innerHTML = project.tags.map((tag) => `<span class="project-spotlight-tag">${escapeHtml(tag)}</span>`).join("");
+
+        setIndicatorState();
+        localStorage.setItem("home-spotlight-index", String(activeIndex));
+
+        if (!PREFERS_REDUCED_MOTION) {
+            flashSpotlight();
+        }
+    }
+
+    function setActiveIndex(nextIndex) {
+        activeIndex = (nextIndex + projects.length) % projects.length;
+        renderSpotlight();
+    }
+
+    function rotateToNext() {
+        setActiveIndex(activeIndex + 1);
+    }
+
+    function resetRotationTimer() {
+        if (rotationTimer) {
+            window.clearInterval(rotationTimer);
+        }
+
+        if (PREFERS_REDUCED_MOTION) {
+            return;
+        }
+
+        rotationTimer = window.setInterval(() => {
+            rotateToNext();
+        }, 6500);
+    }
+
+    renderIndicators();
+    renderSpotlight();
+    resetRotationTimer();
+
+    indicatorWrap.addEventListener("click", (event) => {
+        const button = event.target.closest(".project-spotlight-indicator");
+        if (!button) {
+            return;
+        }
+
+        const nextIndex = Number.parseInt(button.getAttribute("data-index") || "0", 10);
+        if (!Number.isInteger(nextIndex)) {
+            return;
+        }
+
+        setActiveIndex(nextIndex);
+        resetRotationTimer();
+    });
+
+    section.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight") {
+            event.preventDefault();
+            setActiveIndex(activeIndex + 1);
+            resetRotationTimer();
+            return;
+        }
+
+        if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            setActiveIndex(activeIndex - 1);
+            resetRotationTimer();
+        }
+    });
+}
 
 function initOpenSourceContributions() {
     const container = document.getElementById("oss-contrib-list");
