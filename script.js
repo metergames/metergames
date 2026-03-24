@@ -628,6 +628,11 @@ function getQuickNavigatorActions() {
 }
 
 function initQuickNavigator() {
+    const isMobileViewport = window.matchMedia("(max-width: 768px)").matches;
+    const isTouchDevice = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+    if (isMobileViewport || isTouchDevice) return;
+
     if (document.querySelector(".quick-nav-overlay")) return;
 
     const actions = getQuickNavigatorActions();
