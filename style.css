@@ -629,6 +629,9 @@ footer a:hover {
     margin-top: 60px;
     text-align: center;
 }
+#behind-the-scenes {
+    scroll-margin-top: 24px;
+}
 .tech-showcase h2 {
     margin-bottom: 20px;
 }
