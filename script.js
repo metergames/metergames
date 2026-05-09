@@ -6,6 +6,7 @@ const SITE_NAV_ITEMS = [
     { page: "slicestack", label: "Slice Stack", href: "slicestack" },
     { page: "studysnap", label: "StudySnap", href: "studysnap" },
     { page: "pitwall", label: "Pit Wall", href: "pitwall" },
+    { page: "cipher", label: "Cipher", href: "cipher" },
     { page: "about", label: "About", href: "about" },
 ];
 
@@ -357,7 +358,8 @@ function updateLogo(theme) {
         document.body.classList.contains("slice-theme") ||
         document.body.classList.contains("study-theme") ||
         document.body.classList.contains("pit-theme") ||
-        document.body.classList.contains("about-theme");
+        document.body.classList.contains("about-theme") ||
+        document.body.classList.contains("cipher-theme");
 
     if (!isGamePage) {
         // We are on Index or Privacy page
