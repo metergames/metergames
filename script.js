@@ -44,6 +44,7 @@ class SiteFooter extends HTMLElement {
             <footer>
                 <p>&copy; 2026 Meter Games. All rights reserved.</p>
                 <p><a href="privacy">Privacy Policy</a></p>
+                <p><a href="terms">Terms of Use</a></p>
             </footer>
         `;
     }
