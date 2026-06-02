@@ -117,9 +117,18 @@
                 <div class="changelog-box">
                     <div class="version-entry">
                         <div class="version-header">
-                            <span class="version-title" style="color: var(--cipher-accent)">Version 0.33</span>
+                            <span class="version-title" style="color: var(--cipher-accent)">Version 0.34</span>
                             <span class="badge-latest" style="background: var(--cipher-accent)">Latest</span>
                         </div>
+                        <ul class="feature-list">
+                            <li>Fixed hint violations across 39 puzzles to prevent premature answer reveals.</li>
+                            <li>Fixed attempt feedback leaks across 26 puzzles by replacing answers with guided clues.</li>
+                            <li>Replaced explicit solution steps with progressive hints that encourage solving.</li>
+                        </ul>
+                    </div>
+
+                    <div class="version-entry">
+                        <div class="version-header"><span class="version-title">Version 0.33</span></div>
                         <ul class="feature-list">
                             <li>Cleaned up puzzle content, answer leaks, and spoilers.</li>
                             <li>Disabled daily reminders if today's puzzle is already solved.</li>
