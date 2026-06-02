@@ -456,7 +456,7 @@ function getQuickNavigatorActions() {
             description: "Jump to a random featured project",
             keywords: "random surprise project game",
             run: () => {
-                const routes = ["parker", "slicestack", "studysnap", "pitwall"];
+                const routes = ["parker", "slicestack", "studysnap", "pitwall", "cipher"];
                 const target = routes[Math.floor(Math.random() * routes.length)];
                 window.location.href = target;
             },

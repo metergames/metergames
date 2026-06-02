@@ -256,13 +256,18 @@ ul {
 }
 
 @media (max-width: 820px) {
-    .screenshot-row-grid.is-three-up,
-    .screenshot-row-grid.is-two-up {
+    .screenshot-row-grid.is-three-up {
         grid-template-columns: 1fr;
     }
 
     .screenshot-card img {
         max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .screenshot-row-grid.is-two-up {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -308,6 +313,11 @@ ul {
 .card p {
     color: var(--text-muted);
     margin-bottom: 20px;
+}
+
+.card p strong,
+.card p em {
+    color: var(--text-main);
 }
 
 /* Feature Lists */
