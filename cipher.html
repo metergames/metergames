@@ -4,9 +4,22 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Cipher is a daily cryptography puzzle app for Android. Solve binary, Caesar, hex, XOR ciphers and more. Track your streak, replay the archive, and sharpen your code-breaking skills." />
+        <meta name="author" content="Ryan Morov" />
         <title>Cipher - Meter Games</title>
+        <link rel="canonical" href="https://metergames.github.io/metergames/cipher" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Meter Games" />
+        <meta property="og:title" content="Cipher — A daily cryptography puzzle app" />
+        <meta property="og:description" content="Solve a new cipher every day — binary, Caesar, hex, XOR and more. Track your streak, replay the archive, and sharpen your code-breaking skills." />
+        <meta property="og:url" content="https://metergames.github.io/metergames/cipher" />
+        <meta property="og:image" content="https://metergames.github.io/metergames/images/profile-banner.webp" />
+        <meta property="og:image:width" content="1919" />
+        <meta property="og:image:height" content="480" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Cipher — A daily cryptography puzzle app" />
+        <meta name="twitter:description" content="Solve a new cipher every day — binary, Caesar, hex, XOR and more. Track your streak, replay the archive, and sharpen your code-breaking skills." />
+        <meta name="twitter:image" content="https://metergames.github.io/metergames/images/profile-banner.webp" />
         <link rel="icon" href="images/favicon-light.ico" type="image/x-icon" />
-        <link rel="icon" href="images/favicon-light.ico" type="image/x-icon" media="(prefers-color-scheme: light)" />
         <link rel="icon" href="images/favicon-dark.ico" type="image/x-icon" media="(prefers-color-scheme: dark)" />
         <script>
             const savedTheme = localStorage.getItem("theme") || "dark";
@@ -26,26 +39,12 @@
                     sharpen your code-breaking skills.
                 </p>
 
-                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px">
+                <div class="hero-actions">
+                    <!-- LAUNCH SWAP: at Google Play release, replace this span with:
+                         <a href="PLAY_STORE_URL" target="_blank" rel="noreferrer" class="btn">Get it on Google Play</a> -->
                     <span class="btn coming-soon">Coming soon to Google Play</span>
                     <a href="#update-log" class="btn">View update log</a>
                 </div>
-
-                <p
-                    style="
-                        font-size: 0.9rem;
-                        color: var(--text-muted);
-                        margin-top: -10px;
-                        margin-bottom: 18px;
-                        background: rgba(255, 255, 255, 0.02);
-                        display: inline-block;
-                        padding: 10px 20px;
-                        border-radius: 8px;
-                        border: 1px solid var(--border-color);
-                    "
-                >
-                    <strong>Status:</strong> Coming soon — follow for updates.
-                </p>
             </section>
 
             <section class="tech-showcase screenshot-gallery" style="margin-top: 16px">
@@ -54,15 +53,15 @@
 
                 <div class="screenshot-row-grid is-three-up">
                     <div class="screenshot-card">
-                        <img src="images/cipher-home.webp" alt="Home Screen" class="enlargeable-image" />
+                        <img src="images/cipher-home.webp" alt="Home Screen" class="enlargeable-image" loading="lazy" decoding="async" width="1280" height="2700" />
                         <p>Home &amp; Streak Tracking</p>
                     </div>
                     <div class="screenshot-card">
-                        <img src="images/cipher-puzzle.webp" alt="Puzzle Screen" class="enlargeable-image" />
+                        <img src="images/cipher-puzzle.webp" alt="Puzzle Screen" class="enlargeable-image" loading="lazy" decoding="async" width="1280" height="2700" />
                         <p>Active Puzzle Solving</p>
                     </div>
                     <div class="screenshot-card">
-                        <img src="images/cipher-cracked.webp" alt="Success Screen" class="enlargeable-image" />
+                        <img src="images/cipher-cracked.webp" alt="Success Screen" class="enlargeable-image" loading="lazy" decoding="async" width="1280" height="2700" />
                         <p>Cracked with Explanation</p>
                     </div>
                 </div>
@@ -103,11 +102,11 @@
             <section class="tech-showcase screenshot-gallery" style="margin-top: 50px">
                 <div class="screenshot-row-grid is-two-up">
                     <div class="screenshot-card">
-                        <img src="images/cipher-archive.webp" alt="Archive Screen" class="enlargeable-image" />
+                        <img src="images/cipher-archive.webp" alt="Archive Screen" class="enlargeable-image" loading="lazy" decoding="async" width="1280" height="2700" />
                         <p>Archive &amp; Replay</p>
                     </div>
                     <div class="screenshot-card">
-                        <img src="images/cipher-stats.webp" alt="Stats Screen" class="enlargeable-image" />
+                        <img src="images/cipher-stats.webp" alt="Stats Screen" class="enlargeable-image" loading="lazy" decoding="async" width="1280" height="2700" />
                         <p>Stats &amp; Progress</p>
                     </div>
                 </div>

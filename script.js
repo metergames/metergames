@@ -70,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initBanner();
     initLightbox();
     initTheme();
+    initChangelog();
     initQuickNavigator();
     initKonami();
     initAboutNudge();
@@ -417,6 +418,61 @@ function openLightbox(originalImg) {
     };
 
     document.body.appendChild(clone);
+}
+
+/**
+ * CHANGELOG "SHOW ALL" TOGGLE
+ * Collapses long update logs (e.g. Cipher) to the most recent entries behind an
+ * expand/collapse button. Degrades gracefully: with no JS the full list shows.
+ * Short logs (e.g. Parker) are left untouched.
+ */
+function initChangelog() {
+    const VISIBLE_WHEN_COLLAPSED = 5;
+
+    document.querySelectorAll(".changelog-box").forEach((box) => {
+        const entries = Array.from(box.querySelectorAll(".version-entry"));
+        if (entries.length <= VISIBLE_WHEN_COLLAPSED + 1) {
+            return;
+        }
+
+        box.classList.add("is-collapsible");
+
+        const toggle = document.createElement("button");
+        toggle.type = "button";
+        toggle.className = "btn changelog-toggle";
+
+        const collapse = () => {
+            entries.forEach((entry, index) => {
+                entry.classList.toggle("is-hidden", index >= VISIBLE_WHEN_COLLAPSED);
+            });
+            toggle.textContent = `Show all ${entries.length} versions`;
+            toggle.setAttribute("aria-expanded", "false");
+        };
+
+        const expand = () => {
+            entries.forEach((entry) => entry.classList.remove("is-hidden"));
+            toggle.textContent = "Show fewer versions";
+            toggle.setAttribute("aria-expanded", "true");
+        };
+
+        let collapsed = true;
+        collapse();
+
+        toggle.addEventListener("click", () => {
+            collapsed = !collapsed;
+            if (collapsed) {
+                collapse();
+                box.parentElement?.scrollIntoView({
+                    behavior: PREFERS_REDUCED_MOTION ? "auto" : "smooth",
+                    block: "start",
+                });
+            } else {
+                expand();
+            }
+        });
+
+        box.insertAdjacentElement("afterend", toggle);
+    });
 }
 
 function getQuickNavigatorActions() {

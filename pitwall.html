@@ -4,9 +4,22 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content="Pit Wall is a dynamic Formula 1 dashboard built with React and TypeScript, visualizing real-time race data, standings, driver stats, and schedules." />
+        <meta name="author" content="Ryan Morov" />
         <title>Pit Wall - Meter Games</title>
+        <link rel="canonical" href="https://metergames.github.io/metergames/pitwall" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Meter Games" />
+        <meta property="og:title" content="Pit Wall — A dynamic Formula 1 dashboard" />
+        <meta property="og:description" content="A Formula 1 dashboard built with React and TypeScript, visualizing real-time race data, standings, driver stats, and schedules." />
+        <meta property="og:url" content="https://metergames.github.io/metergames/pitwall" />
+        <meta property="og:image" content="https://metergames.github.io/metergames/images/profile-banner.webp" />
+        <meta property="og:image:width" content="1919" />
+        <meta property="og:image:height" content="480" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Pit Wall — A dynamic Formula 1 dashboard" />
+        <meta name="twitter:description" content="A Formula 1 dashboard built with React and TypeScript, visualizing real-time race data, standings, driver stats, and schedules." />
+        <meta name="twitter:image" content="https://metergames.github.io/metergames/images/profile-banner.webp" />
         <link rel="icon" href="images/favicon-light.ico" type="image/x-icon" />
-        <link rel="icon" href="images/favicon-light.ico" type="image/x-icon" media="(prefers-color-scheme: light)" />
         <link rel="icon" href="images/favicon-dark.ico" type="image/x-icon" media="(prefers-color-scheme: dark)" />
         <script>
             const savedTheme = localStorage.getItem("theme") || "dark";
@@ -22,7 +35,7 @@
                 <h1>Pit Wall</h1>
                 <p>A high-performance Formula 1 data dashboard delivering real-time statistics and historical metrics.</p>
                 
-                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+                <div class="hero-actions" style="margin-bottom: 20px">
                     <a href="https://metergames.github.io/f1-pit-wall/" target="_blank" rel="noreferrer" class="btn">
                         Live Demo
                     </a>
@@ -30,17 +43,21 @@
                         View Source
                     </a>
                 </div>
-                
+
                 <div style="margin-top: 30px; margin-bottom: 20px;">
-                    <img 
-                        src="images/pitwall-dashboard.webp" 
-                        alt="Pit Wall Overview" 
-                        class="enlargeable-image" 
-                        style="width: 100%; max-width: 900px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 15px 30px rgba(0,0,0,0.3);"
+                    <img
+                        src="images/pitwall-dashboard.webp"
+                        alt="Pit Wall Overview"
+                        class="enlargeable-image detail-shot is-feature"
+                        loading="lazy"
+                        decoding="async"
+                        width="1248"
+                        height="638"
                     >
                 </div>
             </section>
 
+            <h2 class="sr-only">Highlights</h2>
             <div class="grid">
                 <div class="card">
                     <h3>Features</h3>
@@ -69,16 +86,16 @@
 
                 <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
                     <div style="text-align: center;">
-                        <img src="images/pitwall-standings.webp" alt="Championship Standings" class="enlargeable-image" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color);">
-                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Previous Race Results & Championship Standings</p>
+                        <img src="images/pitwall-standings.webp" alt="Championship Standings" class="enlargeable-image detail-shot" loading="lazy" decoding="async" width="805" height="542">
+                        <p class="detail-shot-caption">Previous Race Results & Championship Standings</p>
                     </div>
                     <div style="text-align: center;">
-                        <img src="images/pitwall-schedule.webp" alt="Race Schedule" class="enlargeable-image" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color);">
-                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Season Schedule & Results</p>
+                        <img src="images/pitwall-schedule.webp" alt="Race Schedule" class="enlargeable-image detail-shot" loading="lazy" decoding="async" width="1198" height="810">
+                        <p class="detail-shot-caption">Season Schedule & Results</p>
                     </div>
                     <div style="text-align: center;">
-                        <img src="images/pitwall-driver.webp" alt="Driver Details" class="enlargeable-image" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color);">
-                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 10px;">Detailed Driver Statistics</p>
+                        <img src="images/pitwall-driver.webp" alt="Driver Details" class="enlargeable-image detail-shot" loading="lazy" decoding="async" width="1286" height="976">
+                        <p class="detail-shot-caption">Detailed Driver Statistics</p>
                     </div>
                 </div>
             </section>
