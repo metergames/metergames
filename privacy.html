@@ -49,6 +49,14 @@
                 margin: 20px 0;
                 color: var(--text-muted);
             }
+            .policy-table-scroll {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .policy-table-scroll table {
+                min-width: 700px;
+            }
             .policy-content th,
             .policy-content td {
                 border: 1px solid rgba(255, 255, 255, 0.08);
@@ -68,7 +76,7 @@
 
             <section class="hero" style="padding: 30px 20px">
                 <h1>Privacy Policy</h1>
-                <p><em>Last Updated: May 17, 2026 · Version 11</em></p>
+                <p><em>Last Updated: June 2, 2026 · Version 12</em></p>
             </section>
 
             <div class="policy-content">
@@ -106,23 +114,37 @@
                 <p><strong>Data stored on your device (never transmitted to us):</strong></p>
                 <ul>
                     <li>Puzzle progress, completion history, solve times</li>
+                    <li>Per-puzzle notes (text you write in the notes field for any puzzle)</li>
                     <li>Streaks, stats, hint token balance</li>
                     <li>Notification preferences and reminder time</li>
                     <li>Pro subscription status</li>
                 </ul>
 
+                <p>
+                    Local game data may also be included in Android's automatic device backup if you have device backup enabled on
+                    your Android device. This backup is stored in your Google account and is controlled by your own Google account
+                    settings, not by us.
+                </p>
+
                 <p><strong>Data shared with third parties:</strong></p>
                 <ul>
                     <li>
                         <strong>Google AdMob</strong> (free version only): May collect your Advertising ID, device identifiers, IP
-                        address, and ad interaction data to serve personalized advertisements. Pro users see no ads and are not
-                        subject to AdMob data collection. See
+                        address, and ad interaction data to serve personalized advertisements. Users who have purchased Pro
+                        (monthly, yearly, or lifetime) or Ad-Free see no ads and are not subject to AdMob data collection. See
                         <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google's Privacy Policy</a
                         >.
                     </li>
                     <li>
                         <strong>Google Play Billing</strong>: Subscription and one-time purchase transactions are processed by
                         Google Play. We do not store payment information. See
+                        <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google's Privacy Policy</a
+                        >.
+                    </li>
+                    <li>
+                        <strong>Google Play Games</strong> (users signed into Google Play Games only): Achievement progress,
+                        including puzzles solved, streak milestones, and solve speed records, is synced to your Google account.
+                        This data is managed by Google. See
                         <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google's Privacy Policy</a
                         >.
                     </li>
@@ -151,48 +173,64 @@
                 <p>We do not sell your personal data to third parties.</p>
 
                 <h2>4. Third-Party Services</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Service</th>
-                            <th>Used In</th>
-                            <th>Purpose</th>
-                            <th>Policy</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Unity Analytics</td>
-                            <td>Parker</td>
-                            <td>Gameplay improvement (opt-in)</td>
-                            <td><a href="https://unity.com/legal/privacy-policy" target="_blank" rel="noreferrer">Unity</a></td>
-                        </tr>
-                        <tr>
-                            <td>Google Play Services</td>
-                            <td>Cipher, Slice Stack</td>
-                            <td>In-app purchases</td>
-                            <td><a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google</a></td>
-                        </tr>
-                        <tr>
-                            <td>Google AdMob</td>
-                            <td>Cipher (free)</td>
-                            <td>Advertising</td>
-                            <td><a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google</a></td>
-                        </tr>
-                        <tr>
-                            <td>OpenAI API</td>
-                            <td>StudySnap (opt-in)</td>
-                            <td>AI content generation</td>
-                            <td><a href="https://openai.com/privacy" target="_blank" rel="noreferrer">OpenAI</a></td>
-                        </tr>
-                        <tr>
-                            <td>f1api.dev</td>
-                            <td>Pit Wall</td>
-                            <td>Public F1 data</td>
-                            <td>—</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="policy-table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Used In</th>
+                                <th>Purpose</th>
+                                <th>Policy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Unity Analytics</td>
+                                <td>Parker</td>
+                                <td>Gameplay improvement (opt-in)</td>
+                                <td>
+                                    <a href="https://unity.com/legal/privacy-policy" target="_blank" rel="noreferrer">Unity</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Google Play Services</td>
+                                <td>Cipher, Slice Stack</td>
+                                <td>In-app purchases</td>
+                                <td><a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google</a></td>
+                            </tr>
+                            <tr>
+                                <td>Google AdMob</td>
+                                <td>Cipher (free)</td>
+                                <td>Advertising</td>
+                                <td><a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google</a></td>
+                            </tr>
+                            <tr>
+                                <td>Google Play Games</td>
+                                <td>Cipher</td>
+                                <td>Achievements and play history</td>
+                                <td><a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google</a></td>
+                            </tr>
+                            <tr>
+                                <td>Google User Messaging Platform (UMP)</td>
+                                <td>Cipher</td>
+                                <td>Consent management (GDPR/CCPA regions)</td>
+                                <td><a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google</a></td>
+                            </tr>
+                            <tr>
+                                <td>OpenAI API</td>
+                                <td>StudySnap (opt-in)</td>
+                                <td>AI content generation</td>
+                                <td><a href="https://openai.com/privacy" target="_blank" rel="noreferrer">OpenAI</a></td>
+                            </tr>
+                            <tr>
+                                <td>f1api.dev</td>
+                                <td>Pit Wall</td>
+                                <td>Public F1 data</td>
+                                <td>—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <h2>5. Data Retention</h2>
                 <p>
