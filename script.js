@@ -15,6 +15,7 @@ const OSS_CONTRIB_CONFIG = {
     repositories: [
         // Format: "owner/repo"
         "petertzy/markdown-reader",
+        "nextcloud/passman-android",
     ],
     maxEntriesPerRepo: 4,
 };
