@@ -571,6 +571,11 @@ function initSpotlight(scope = document) {
         card.dataset.spotlightBound = "true";
 
         card.addEventListener("mouseenter", () => {
+            if (card.classList.contains("open-source-card")) {
+                card.style.transition = "";
+                return;
+            }
+
             card.style.transition = "border-color 0.3s ease";
         });
 

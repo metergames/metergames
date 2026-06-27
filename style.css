@@ -1670,6 +1670,30 @@ footer a:hover {
     transform: translateZ(30px);
 }
 
+.open-source-card {
+    transform: translate3d(0, 0, 0);
+    transform-style: flat;
+    transition:
+        transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.2s ease;
+    will-change: transform;
+}
+
+.open-source-card:hover {
+    transform: translate3d(0, -6px, 0);
+}
+
+.open-source-card::before,
+.open-source-card:hover::before {
+    opacity: 0;
+}
+
+.open-source-card > *,
+.open-source-card:hover > * {
+    transform: none;
+    transition: none;
+}
+
 /* --- Konami Code Barrel Roll --- */
 .barrel-roll {
     animation: barrelRoll 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
