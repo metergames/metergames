@@ -69,6 +69,7 @@ const PREFERS_REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduc
 
 document.addEventListener("DOMContentLoaded", () => {
     initBanner();
+    initCipherScreenshotTheme();
     initLightbox();
     initTheme();
     initChangelog();
@@ -85,6 +86,88 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+function initCipherScreenshotTheme() {
+    const switcher = document.querySelector(".cipher-theme-switcher");
+    const galleries = document.querySelectorAll("[data-cipher-screenshot-gallery]");
+    if (!switcher || galleries.length === 0) return;
+
+    const buttons = Array.from(switcher.querySelectorAll("[data-cipher-theme]"));
+    const shots = Array.from(document.querySelectorAll(".theme-shot[data-shot-theme]"));
+    const availableThemes = buttons.map((button) => button.dataset.cipherTheme);
+    const savedTheme = localStorage.getItem("cipherScreenshotTheme");
+    const defaultTheme = availableThemes.includes(savedTheme) ? savedTheme : "hacker";
+
+    const applyFrameColor = (shot) => {
+        const frame = shot.closest(".cipher-phone-frame");
+        if (!frame || !shot.dataset.topSampleColor) return;
+
+        frame.style.setProperty("--cipher-screenshot-top-color", shot.dataset.topSampleColor);
+    };
+
+    const sampleTopColor = (shot) => {
+        if (!shot.naturalWidth || !shot.naturalHeight) return;
+
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d", { willReadFrequently: true });
+        if (!context) return;
+
+        canvas.width = 1;
+        canvas.height = 1;
+
+        const sampleX = Math.max(0, Math.min(shot.naturalWidth - 1, Math.floor(shot.naturalWidth / 3)));
+        const sampleY = Math.min(shot.naturalHeight - 1, 4);
+        context.drawImage(shot, sampleX, sampleY, 1, 1, 0, 0, 1, 1);
+
+        const [red, green, blue, alpha] = context.getImageData(0, 0, 1, 1).data;
+        shot.dataset.topSampleColor = alpha === 255 ? `rgb(${red}, ${green}, ${blue})` : `rgba(${red}, ${green}, ${blue}, ${alpha / 255})`;
+
+        if (shot.classList.contains("is-active")) {
+            applyFrameColor(shot);
+        }
+    };
+
+    shots.forEach((shot) => {
+        if (shot.complete) {
+            sampleTopColor(shot);
+        } else {
+            shot.addEventListener("load", () => sampleTopColor(shot), { once: true });
+        }
+    });
+
+    const setActiveTheme = (theme) => {
+        if (!availableThemes.includes(theme)) return;
+
+        localStorage.setItem("cipherScreenshotTheme", theme);
+
+        galleries.forEach((gallery) => {
+            gallery.dataset.activeTheme = theme;
+        });
+
+        buttons.forEach((button) => {
+            const isActive = button.dataset.cipherTheme === theme;
+            button.classList.toggle("is-active", isActive);
+            button.setAttribute("aria-pressed", String(isActive));
+        });
+
+        shots.forEach((shot) => {
+            const isActive = shot.dataset.shotTheme === theme;
+            shot.classList.toggle("is-active", isActive);
+            shot.setAttribute("aria-hidden", String(!isActive));
+
+            if (isActive) {
+                applyFrameColor(shot);
+            }
+        });
+    };
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            setActiveTheme(button.dataset.cipherTheme);
+        });
+    });
+
+    setActiveTheme(defaultTheme);
+}
 function initOpenSourceContributions() {
     const container = document.getElementById("oss-contrib-list");
     if (!container) return;
