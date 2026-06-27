@@ -52,23 +52,90 @@
                 </div>
             </section>
 
-            <section class="tech-showcase screenshot-gallery" style="margin-top: 16px">
-                <h2>Experience</h2>
-                <p>From the daily puzzle to tracking your progress, Cipher provides a complete cryptography learning loop.</p>
 
-                <div class="screenshot-row-grid is-three-up">
-                    <div class="screenshot-card">
-                        <img src="images/cipher-home.webp" alt="Home Screen" class="enlargeable-image" loading="lazy" decoding="async" width="1280" height="2700" />
-                        <p>Home &amp; Streak Tracking</p>
+            <section class="tech-showcase cipher-showcase" style="margin-top: 16px">
+                <div class="cipher-showcase-header">
+                    <div>
+                        <h2>Experience</h2>
+                        <p>From the daily puzzle to learning, packs, archives, and advanced stats, Cipher provides a complete cryptography loop.</p>
                     </div>
-                    <div class="screenshot-card">
-                        <img src="images/cipher-puzzle.webp" alt="Puzzle Screen" class="enlargeable-image" loading="lazy" decoding="async" width="1280" height="2700" />
-                        <p>Active Puzzle Solving</p>
+                    <div class="cipher-theme-switcher" role="group" aria-label="Cipher screenshot theme">
+                        <button type="button" class="cipher-theme-option is-active" data-cipher-theme="hacker" aria-pressed="true">Hacker</button>
+                        <button type="button" class="cipher-theme-option" data-cipher-theme="dark" aria-pressed="false">Dark</button>
+                        <button type="button" class="cipher-theme-option" data-cipher-theme="light" aria-pressed="false">Light</button>
                     </div>
-                    <div class="screenshot-card">
-                        <img src="images/cipher-cracked.webp" alt="Success Screen" class="enlargeable-image" loading="lazy" decoding="async" width="1280" height="2700" />
-                        <p>Cracked with Explanation</p>
-                    </div>
+                </div>
+
+                <div class="cipher-screenshot-grid" data-cipher-screenshot-gallery data-active-theme="hacker">
+                    <article class="cipher-screenshot-card is-featured">
+                        <div class="cipher-phone-frame">
+                            <img src="images/cipher/hacker/main-screen.webp" alt="Cipher home screen in Hacker theme" class="theme-shot is-active enlargeable-image" data-shot-theme="hacker" aria-hidden="false" loading="eager" decoding="async" width="1280" height="2700" />
+                            <img src="images/cipher/dark/main-screen.webp" alt="Cipher home screen in Dark theme" class="theme-shot enlargeable-image" data-shot-theme="dark" aria-hidden="true" loading="eager" decoding="async" width="1280" height="2700" />
+                            <img src="images/cipher/light/main-screen.webp" alt="Cipher home screen in Light theme" class="theme-shot enlargeable-image" data-shot-theme="light" aria-hidden="true" loading="eager" decoding="async" width="1280" height="2700" />
+                        </div>
+                        <h3>New cipher daily</h3>
+                        <p>Crack today's puzzle</p>
+                    </article>
+
+                    <article class="cipher-screenshot-card">
+                        <div class="cipher-phone-frame">
+                            <img src="images/cipher/hacker/challenge.webp" alt="Cipher challenge screen in Hacker theme" class="theme-shot is-active enlargeable-image" data-shot-theme="hacker" aria-hidden="false" loading="eager" decoding="async" width="1280" height="2700" />
+                            <img src="images/cipher/dark/challenge.webp" alt="Cipher challenge screen in Dark theme" class="theme-shot enlargeable-image" data-shot-theme="dark" aria-hidden="true" loading="eager" decoding="async" width="1280" height="2700" />
+                            <img src="images/cipher/light/challenge.webp" alt="Cipher challenge screen in Light theme" class="theme-shot enlargeable-image" data-shot-theme="light" aria-hidden="true" loading="eager" decoding="async" width="1280" height="2700" />
+                        </div>
+                        <h3>Can you crack it?</h3>
+                        <p>Decode clues with hints</p>
+                    </article>
+
+                    <article class="cipher-screenshot-card">
+                        <div class="cipher-phone-frame">
+                            <img src="images/cipher/hacker/completed-challenge.webp" alt="Cipher solved challenge screen in Hacker theme" class="theme-shot is-active enlargeable-image" data-shot-theme="hacker" aria-hidden="false" loading="eager" decoding="async" width="1280" height="2700" />
+                            <img src="images/cipher/dark/completed-challenge.webp" alt="Cipher solved challenge screen in Dark theme" class="theme-shot enlargeable-image" data-shot-theme="dark" aria-hidden="true" loading="eager" decoding="async" width="1280" height="2700" />
+                            <img src="images/cipher/light/completed-challenge.webp" alt="Cipher solved challenge screen in Light theme" class="theme-shot enlargeable-image" data-shot-theme="light" aria-hidden="true" loading="eager" decoding="async" width="1280" height="2700" />
+                        </div>
+                        <h3>Learn after every solve</h3>
+                        <p>See stats, answers, and explanations</p>
+                    </article>
+
+                    <article class="cipher-screenshot-card">
+                        <div class="cipher-phone-frame">
+                            <img src="images/cipher/hacker/puzzle-pack.webp" alt="Cipher puzzle pack screen in Hacker theme" class="theme-shot is-active enlargeable-image" data-shot-theme="hacker" aria-hidden="false" loading="eager" decoding="async" width="1280" height="2700" />
+                            <img src="images/cipher/dark/puzzle-pack.webp" alt="Cipher puzzle pack screen in Dark theme" class="theme-shot enlargeable-image" data-shot-theme="dark" aria-hidden="true" loading="eager" decoding="async" width="1280" height="2700" />
+                            <img src="images/cipher/light/puzzle-pack.webp" alt="Cipher puzzle pack screen in Light theme" class="theme-shot enlargeable-image" data-shot-theme="light" aria-hidden="true" loading="eager" decoding="async" width="1280" height="2700" />
+                        </div>
+                        <h3>Puzzle packs</h3>
+                        <p>Themed code-breaking adventures</p>
+                    </article>
+
+                    <article class="cipher-screenshot-card">
+                        <div class="cipher-phone-frame">
+                            <img src="images/cipher/hacker/learn.webp" alt="Cipher learn screen in Hacker theme" class="theme-shot is-active enlargeable-image" data-shot-theme="hacker" aria-hidden="false" loading="eager" decoding="async" width="1280" height="2700" />
+                            <img src="images/cipher/dark/learn.webp" alt="Cipher learn screen in Dark theme" class="theme-shot enlargeable-image" data-shot-theme="dark" aria-hidden="true" loading="eager" decoding="async" width="1280" height="2700" />
+                            <img src="images/cipher/light/learn.webp" alt="Cipher learn screen in Light theme" class="theme-shot enlargeable-image" data-shot-theme="light" aria-hidden="true" loading="eager" decoding="async" width="1280" height="2700" />
+                        </div>
+                        <h3>Learn the ciphers</h3>
+                        <p>Examples, guides, and tools</p>
+                    </article>
+
+                    <article class="cipher-screenshot-card">
+                        <div class="cipher-phone-frame">
+                            <img src="images/cipher/hacker/archive.webp" alt="Cipher archive screen in Hacker theme" class="theme-shot is-active enlargeable-image" data-shot-theme="hacker" aria-hidden="false" loading="eager" decoding="async" width="1280" height="2700" />
+                            <img src="images/cipher/dark/archive.webp" alt="Cipher archive screen in Dark theme" class="theme-shot enlargeable-image" data-shot-theme="dark" aria-hidden="true" loading="eager" decoding="async" width="1280" height="2700" />
+                            <img src="images/cipher/light/archive.webp" alt="Cipher archive screen in Light theme" class="theme-shot enlargeable-image" data-shot-theme="light" aria-hidden="true" loading="eager" decoding="async" width="1280" height="2700" />
+                        </div>
+                        <h3>Replay the archive</h3>
+                        <p>Every past puzzle in one place</p>
+                    </article>
+
+                    <article class="cipher-screenshot-card">
+                        <div class="cipher-phone-frame">
+                            <img src="images/cipher/hacker/stats.webp" alt="Cipher stats screen in Hacker theme" class="theme-shot is-active enlargeable-image" data-shot-theme="hacker" aria-hidden="false" loading="eager" decoding="async" width="1280" height="2700" />
+                            <img src="images/cipher/dark/stats.webp" alt="Cipher stats screen in Dark theme" class="theme-shot enlargeable-image" data-shot-theme="dark" aria-hidden="true" loading="eager" decoding="async" width="1280" height="2700" />
+                            <img src="images/cipher/light/stats.webp" alt="Cipher stats screen in Light theme" class="theme-shot enlargeable-image" data-shot-theme="light" aria-hidden="true" loading="eager" decoding="async" width="1280" height="2700" />
+                        </div>
+                        <h3>Track your progress</h3>
+                        <p>Streaks, times, and advanced stats</p>
+                    </article>
                 </div>
             </section>
 
@@ -112,18 +179,6 @@
                 </p>
             </div>
 
-            <section class="tech-showcase screenshot-gallery" style="margin-top: 50px">
-                <div class="screenshot-row-grid is-two-up">
-                    <div class="screenshot-card">
-                        <img src="images/cipher-archive.webp" alt="Archive Screen" class="enlargeable-image" loading="lazy" decoding="async" width="1280" height="2700" />
-                        <p>Archive &amp; Replay</p>
-                    </div>
-                    <div class="screenshot-card">
-                        <img src="images/cipher-stats.webp" alt="Stats Screen" class="enlargeable-image" loading="lazy" decoding="async" width="1280" height="2700" />
-                        <p>Stats &amp; Progress</p>
-                    </div>
-                </div>
-            </section>
 
             <div class="changelog-section" id="update-log">
                 <h2>Update Log</h2>
