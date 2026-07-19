@@ -17,6 +17,18 @@ const OSS_CONTRIB_CONFIG = {
         "petertzy/markdown-reader",
         "nextcloud/passman-android",
     ],
+    manualContributions: [
+        {
+            repository: "nextcloud/passman-android",
+            number: 192,
+            title: "Add password digit highlighting and settings toggle",
+            htmlUrl: "https://github.com/nextcloud/passman-android/pull/192",
+            contributedAt: "2026-06-19T18:41:49Z",
+            integrationType: "landed",
+            // GitHub left the PR unmerged, but these commits are present on master:
+            // 1237476924fdbc37ef191480fe4d18dd1c081b51 and d237be07fd73cc77b41e6e16e796c4cd8b7327b5.
+        },
+    ],
     maxEntriesPerRepo: 4,
 };
 
@@ -199,28 +211,29 @@ function initOpenSourceContributions() {
 }
 
 async function fetchAndRenderContributions(container) {
-    const { repositories, githubUsername, maxEntriesPerRepo } = OSS_CONTRIB_CONFIG;
+    const { repositories, githubUsername, manualContributions = [], maxEntriesPerRepo } = OSS_CONTRIB_CONFIG;
 
     const repoResults = await Promise.all(
         repositories.map(async (repoName) => {
-            const pulls = await fetchMergedPullRequestsForRepo(repoName, githubUsername);
+            const mergedPulls = await fetchMergedPullRequestsForRepo(repoName, githubUsername);
+            const contributions = mergeManualContributions(repoName, mergedPulls, manualContributions);
             const metadata = await fetchRepositoryMetadata(repoName);
             return {
                 repoName,
-                pulls,
+                contributions,
                 metadata,
             };
         }),
     );
 
-    const reposWithContribs = repoResults.filter((repo) => repo.pulls.length > 0);
+    const reposWithContribs = repoResults.filter((repo) => repo.contributions.length > 0);
 
     if (reposWithContribs.length === 0) {
         container.innerHTML = `
             <div class="card open-source-card">
-                <h3>No merged PRs found</h3>
+                <h3>No contributions found</h3>
                 <p>
-                    No merged pull requests were found for the configured repositories and username.
+                    No accepted contributions were found for the configured repositories and username.
                 </p>
             </div>
         `;
@@ -228,22 +241,33 @@ async function fetchAndRenderContributions(container) {
     }
 
     reposWithContribs.sort((a, b) => {
-        const aLatest = new Date(a.pulls[0].merged_at).getTime();
-        const bLatest = new Date(b.pulls[0].merged_at).getTime();
+        const aLatest = new Date(a.contributions[0].contributedAt).getTime();
+        const bLatest = new Date(b.contributions[0].contributedAt).getTime();
         return bLatest - aLatest;
     });
 
     container.innerHTML = reposWithContribs
         .map((repo) => {
-            const items = repo.pulls.slice(0, maxEntriesPerRepo);
+            const items = repo.contributions.slice(0, maxEntriesPerRepo);
 
             const itemMarkup = items
-                .map((pr) => {
-                    const mergedDate = formatDate(pr.merged_at);
+                .map((contribution) => {
+                    const contributionDate = formatDate(contribution.contributedAt);
+                    const isLandedContribution = contribution.integrationType === "landed";
+                    const statusLabel = isLandedContribution ? "landed on master" : "merged";
+                    const statusTitle = isLandedContribution
+                        ? ' title="The pull request was closed after its commits had already landed on the default branch."'
+                        : "";
                     return `
                         <div class="open-source-pr-item">
-                            <a href="${pr.html_url}" target="_blank" rel="noreferrer">${escapeHtml(pr.title)}</a>
-                            <div class="open-source-pr-meta">#${pr.number} merged on ${mergedDate}</div>
+                            <a href="${contribution.htmlUrl}" target="_blank" rel="noreferrer">${escapeHtml(contribution.title)}</a>
+                            <div class="open-source-pr-meta">
+                                <span>#${contribution.number}</span>
+                                <span aria-hidden="true">&middot;</span>
+                                <span class="open-source-status${isLandedContribution ? " is-landed" : ""}"${statusTitle}>${statusLabel}</span>
+                                <span aria-hidden="true">&middot;</span>
+                                <span>${contributionDate}</span>
+                            </div>
                         </div>
                     `;
                 })
@@ -266,7 +290,7 @@ async function fetchAndRenderContributions(container) {
                                 ${stars.toLocaleString()}
                             </span>
                         </div>
-                        <span class="open-source-count">${repo.pulls.length} merged PR${repo.pulls.length === 1 ? "" : "s"}</span>
+                        <span class="open-source-count">${repo.contributions.length} contribution${repo.contributions.length === 1 ? "" : "s"}</span>
                     </div>
                     <p class="open-source-repo-desc">${safeDescription}</p>
                     <div class="skill-container open-source-language-list">
@@ -347,7 +371,25 @@ async function fetchMergedPullRequestsForRepo(repoName, username) {
 
     return allPulls
         .filter((pr) => pr?.user?.login?.toLowerCase() === username.toLowerCase() && Boolean(pr.merged_at))
-        .sort((a, b) => new Date(b.merged_at).getTime() - new Date(a.merged_at).getTime());
+        .map((pr) => ({
+            number: pr.number,
+            title: pr.title,
+            htmlUrl: pr.html_url,
+            contributedAt: pr.merged_at,
+            integrationType: "merged",
+        }))
+        .sort((a, b) => new Date(b.contributedAt).getTime() - new Date(a.contributedAt).getTime());
+}
+
+function mergeManualContributions(repoName, automaticContributions, manualContributions) {
+    const existingNumbers = new Set(automaticContributions.map((contribution) => contribution.number));
+    const repoManualContributions = manualContributions.filter(
+        (contribution) => contribution.repository === repoName && !existingNumbers.has(contribution.number),
+    );
+
+    return [...automaticContributions, ...repoManualContributions].sort(
+        (a, b) => new Date(b.contributedAt).getTime() - new Date(a.contributedAt).getTime(),
+    );
 }
 
 function formatDate(dateValue) {
